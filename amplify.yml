@@ -1,0 +1,21 @@
+version: 0.1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - 'WORDPRESS_CLIENT_SECRET=$WORDPRESS_CLIENT_SECRET
+          WORDPRESS_PASSWORD=$WORDPRESS_PASSWORD
+          GATSBY_SEND_EMAIL_API=$SEND_EMAIL_API
+          GATSBY_GOOGLE_MAPS_KEY=$GOOGLE_MAPS_KEY
+          GATSBY_SUSCRIBE_API=$SUSCRIBE_API
+          gatsby build'
+  artifacts:
+    baseDirectory: public
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

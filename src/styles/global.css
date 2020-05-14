@@ -1,0 +1,144 @@
+/**
+CSS Global file
+**/ 
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap');
+@import "~hover.css";
+
+html {
+    height: 100vh;
+}
+
+html, body {
+    background: #171717;
+    margin: 0;
+}
+
+* {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5 {
+    text-transform: uppercase;
+    font-weight: bolder;
+    margin: 0;
+}
+
+h1 {
+    color: black;
+    margin-bottom: 24px;
+}
+
+h2 {
+    color: black;
+    letter-spacing: 6px;
+    margin: 0;
+}
+
+h3 {
+    color: black;
+}
+
+h4 {
+    color: #EA913A;
+    margin: 0;
+}
+
+h5 {
+    color: black;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited, a:checked, a:hover{
+    color: inherit;
+}
+
+.primary-background-color {
+    background-color: #EA913A;
+}
+
+.secondary-background-color {
+    background-color: #c9c9c9;
+}
+
+.primary-text-color {
+    color: black;
+}
+
+.secondary-text-color {
+    color: #171717;
+}
+
+.accent-text-color {
+    color: #a0a0a0;
+}
+
+.dark-text-color {
+    color: #939393;
+}
+
+input[type=text] {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.primary-button {
+    color: white;
+    background: #EA913A;
+    padding: 8px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.MuiFormLabel-root {
+    font-family: 'Nunito Sans', sans-serif !important;
+    color: black !important;
+}
+
+.MuiButton-root {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: bold !important;
+}
+
+.MuiInputBase-input {
+    font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+    color: #EA913A !important;
+}
+
+.MuiInput-underline:after {
+    border-bottom: 2px solid #EA913A !important;
+}
+
+.MuiFormLabel-root.Mui-error {
+    color: #f44336 !important;
+}
+
+.MuiInput-underline.Mui-error:after {
+    border-bottom: 2px solid #f44336 !important;
+}
+
+.MuiFormHelperText-root.Mui-error {
+    font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.MuiTypography-body1 {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: normal !important;
+}
+
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: #EA913A !important;
+}
+
+.MuiPaper-root {
+    background-color: #EA913A !important;
+    color: white !important;
+}
