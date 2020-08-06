@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import "../styles/global.css"
 import TagsSideNav from "./tags-sidenav"
+import Events from "./events"
 import { TwitterTimelineEmbed } from "react-twitter-embed"
 
 /**
@@ -34,6 +35,7 @@ const SideNav = () => {
 
   return (
     <SideNavWrapper>
+      <Events/>
       <TagsSideNav/>
       <div className="last-minute sidenav-section">
         <h3>Twitter Feed</h3>
