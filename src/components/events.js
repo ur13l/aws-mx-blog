@@ -78,9 +78,7 @@ const Events = () => {
       }
   `)
 
-
   const events = data.events.edges
-  console.log(events)
   return (
     <EventsWrapper>
       <h3>Eventos</h3>
