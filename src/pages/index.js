@@ -80,7 +80,7 @@ class Blog extends Component {
    * Render function 
    */
   render() {
-    var posts = this.props.data.posts.edges
+    const posts = this.props.data.posts.edges
     const numPages = this.props.pageContext.numPages
     const currentPage = this.props.pageContext.currentPage
 

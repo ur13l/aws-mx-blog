@@ -1,13 +1,12 @@
-import React, { Component } from "react"
+import { useStaticQuery } from "gatsby"
+import React from "react"
 import styled from "styled-components"
 import "../styles/global.css"
-import PostItem from "../components/post-item"
-
-
-
+import { graphql, Link } from "gatsby"
+import PostItem from "./post-item"
 
 /**
- * TagsSideNavWrapper element, used to set style to a component.
+ * SearchPanelWrapper element, used to set style to a component.
  */
 const EventsWrapper = styled.div`
   display: grid;
@@ -31,82 +30,67 @@ const EventsWrapper = styled.div`
   } 
 `
 
-class Events extends Component {
 
-  /**
-   * @function postLoop
-   * @param {Array<Object>} events
-   * Function to iterate over the events to render on page.
-   */
-  eventLoop = events => {
-    let div = []
-    events.forEach((event, key) => {
-      if(key > 0) {
-        div.push(<PostItem event={event} key={key} i={key} />)
+/**
+ * @function SearchPanel
+ * @author Uriel
+ * SearchPanel will render all the posts that will be filtered by a JS function.
+ */
+const Events = () => {
+  const data = useStaticQuery(graphql`
+      query {
+          events: allWordpressPost(
+              sort: { fields: [date], order: DESC },
+              filter: { categories: { elemMatch: { name: { eq: "Evento" } } } }
+              limit: 11
+          ) {
+              edges {
+                  node {
+                      id
+                      title
+                      content
+                      excerpt
+                      slug
+                      date
+                      author {
+                          name
+                      }
+                      featured_media {
+                          link
+                          caption
+                          localFile {
+                              childImageSharp {
+                                  # Try editing the "maxWidth" value to generate resized images.
+                                  fluid(maxWidth: 468) {
+                                      ...GatsbyImageSharpFluid_tracedSVG
+                                  }
+                              }
+                          }
+
+                      }
+                      categories {
+                          id
+                          name
+                      }
+                  }
+              }
+          }
       }
-    })
-    return div
-  }
+  `)
 
-  render() {
-    console.log(this.props);
-    const events = this.props.data.events.edges
-    return (
-      <EventsWrapper>
-        <h3>Eventos</h3>
-        <div className="post-container">
-            {this.eventLoop(events)}
-        </div>
-      </EventsWrapper>
-    )
-}
+
+  const events = data.events.edges
+  console.log(events)
+  return (
+    <EventsWrapper>
+      <h3>Eventos</h3>
+      <div className="post-container">
+        {
+            events.map((elem, key) =>  (<PostItem post={elem} key={key} i={key} />))
+        }
+      </div>
+    </EventsWrapper>
+  )
 }
 
 export default Events
-
-/**
- * @function Events
- * Events to show the main events.
- * Note: The order is taken from the most popular tag (the one with most
- * publicated posts) to the least one.
- */
-export const postsQuery = graphql`
-query {
-  events: allWordpressPost(
-    sort: { fields: [date], order: DESC },
-    filter: { categories: { elemMatch: { name: { eq: "Evento" } } } }
-    limit: 11
-  ) {
-    edges {
-      node {
-        id
-        title
-        content 
-        excerpt
-        slug
-        date
-        author {
-          name
-        }
-        featured_media {
-          link
-          caption
-          localFile {
-            childImageSharp {
-              # Try editing the "maxWidth" value to generate resized images.
-              fluid(maxWidth: 468) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
-        }  
-        categories {
-          id
-          name
-        }
-      }
-    }
-  }
-}
-`
-
