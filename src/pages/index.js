@@ -7,7 +7,7 @@ import Title from "../components/title"
 import PostItem from "../components/post-item"
 import Paginator from "../components/paginator"
 
-import Wrapper from '../styles/blog';
+import Wrapper from "../styles/blog"
 
 /**
  * @class Blog
@@ -15,48 +15,35 @@ import Wrapper from '../styles/blog';
  * Page class to show all blog entries.
  */
 class Blog extends Component {
-
-  /**
-   * @function postLoop
-   * @param {Array<Object>} posts
-   * @author Uriel Infante
-   * Function to iterate over the posts to render on page.
-   */
-  postLoop = posts => {
-    let div = []
-    posts.forEach((post, key) => {
-      if(key > 0) {
-        div.push(<PostItem post={post} key={key} i={key} />)
-      }
-    })
-    return div
-  }
-
-  /**
-   * @function render
-   * @author Uriel Infante
-   * Render function 
-   */
   render() {
-    var posts = this.props.data.posts.edges
-    const numPages = this.props.pageContext.numPages
-    const currentPage = this.props.pageContext.currentPage
+    const {
+      data: {
+        posts: { edges },
+      },
+      pageContext: { numPages, currentPage },
+    } = this.props
+    let postsContent = edges
 
-    var cover = (<></>);
-    if(posts.length > 0) {
-      cover = (<PostItem post={posts[0]} key="0" i="0" isCover={true} />)
-    }
+    if (!postsContent) return null
+
+    const MainPost = (
+      <PostItem post={postsContent[0]} key="0" i="0" isCover={true} />
+    )
+    // Getting all posts except the first one already used as MainPost
+    postsContent = postsContent.slice(1)
     return (
       <Wrapper>
         <Layout location="/blog">
-          <SEO title="AWS MX Blog"/>
+          <SEO title="AWS MX Blog" />
           <div className="container">
             <div className="blog-container">
               <div className="entry-container">
                 <Title title="Blog" />
-                {cover}
+                {MainPost}
                 <div className="post-container">
-                  {this.postLoop(posts)}
+                  {postsContent.map((post, key) => (
+                    <PostItem post={post} key={key} i={key} />
+                  ))}
                 </div>
                 <Paginator
                   numPages={numPages}
@@ -64,7 +51,7 @@ class Blog extends Component {
                   baseRoute={"/"}
                 />
               </div>
-              <SideNav/>
+              <SideNav />
             </div>
           </div>
         </Layout>
@@ -73,26 +60,20 @@ class Blog extends Component {
   }
 }
 
-/**
- * Exporting blog
- */
 export default Blog
-
 
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query {
-    posts: allWordpressPost(
-      sort: { fields: [date], order: DESC },
-      limit: 11
-    ) {
+    posts: allWordpressPost(sort: { fields: [date], order: DESC }, limit: 11) {
       edges {
         node {
           id
           title
-          content 
+          content
           sticky
           excerpt
           slug
@@ -111,7 +92,7 @@ export const postsQuery = graphql`
                 }
               }
             }
-          }  
+          }
           tags {
             id
             name
