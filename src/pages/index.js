@@ -1,55 +1,13 @@
+import "react-multi-carousel/lib/styles.css"
 import React, { Component } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import styled from "styled-components"
 import SideNav from "../components/sidenav"
-import "react-multi-carousel/lib/styles.css"
 import Title from "../components/title"
 import PostItem from "../components/post-item"
 import Paginator from "../components/paginator"
 
-/**
- * Styled div of Blog Page
- */
-const BlogWrapper = styled.div`
-  background-color: #FFFFFF;
-  min-height:100vh;
-
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
-
-  .post-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 12px;
-    
-  }
-
-  .cover {
-    grid-row: 1/ span 2
-  }
-  
-
-.post-container > * {
-  padding-bottom: 24px;
-  margin-bottom:36px;
-}
-
-@media screen and (max-width: 768px) {
-  .blog-container, .post-container {
-    grid-template-columns: 12fr;
-  }
-  
-  .entry-container {
-    grid-template-columns: 1fr;
-  }
-}
-`
+import Wrapper from '../styles/blog';
 
 /**
  * @class Blog
@@ -89,7 +47,7 @@ class Blog extends Component {
       cover = (<PostItem post={posts[0]} key="0" i="0" isCover={true} />)
     }
     return (
-      <BlogWrapper>
+      <Wrapper>
         <Layout location="/blog">
           <SEO title="AWS MX Blog"/>
           <div className="container">
@@ -110,7 +68,7 @@ class Blog extends Component {
             </div>
           </div>
         </Layout>
-      </BlogWrapper>
+      </Wrapper>
     )
   }
 }
