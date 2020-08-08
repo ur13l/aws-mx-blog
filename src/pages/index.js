@@ -15,6 +15,9 @@ import Wrapper from "../styles/blog"
  * Page class to show all blog entries.
  */
 class Blog extends Component {
+  renderPosts = posts =>
+    posts.map((post, key) => <PostItem post={post} key={key} i={key} />)
+
   render() {
     const {
       data: {
@@ -22,15 +25,13 @@ class Blog extends Component {
       },
       pageContext: { numPages, currentPage },
     } = this.props
-    let postsContent = edges
+    let postsContent = edges;
 
-    if (!postsContent) return <div>No hay entradas disponibles</div>
+    const renderContent = postsContent.length > 0;
 
-    const MainPost = (
+    const MainPost = renderContent && (
       <PostItem post={postsContent[0]} key="0" i="0" isCover={true} />
     )
-    // Getting all posts except the first one already used as MainPost
-    postsContent = postsContent.slice(1)
     return (
       <Wrapper>
         <Layout location="/blog">
@@ -41,9 +42,10 @@ class Blog extends Component {
                 <Title title="Blog" />
                 {MainPost}
                 <div className="post-container">
-                  {postsContent.map((post, key) => (
-                    <PostItem post={post} key={key} i={key} />
-                  ))}
+                  {/* Getting all posts except the first one already used as MainPost */}
+                  {renderContent
+                    ? this.renderPosts(postsContent.slice(1))
+                    : "No hay entradas disponibles"}
                 </div>
                 <Paginator
                   numPages={numPages}
