@@ -24,7 +24,7 @@ class Blog extends Component {
     } = this.props
     let postsContent = edges
 
-    if (!postsContent) return null
+    if (!postsContent) return <div>No hay entradas disponibles</div>
 
     const MainPost = (
       <PostItem post={postsContent[0]} key="0" i="0" isCover={true} />
