@@ -3,7 +3,7 @@ import React from "react"
 import styled from "styled-components"
 import "../styles/global.css"
 import { graphql, Link } from "gatsby"
-import PostItem from "./post-item"
+import EventItem from "./event-item"
 
 /**
  * SearchPanelWrapper element, used to set style to a component.
@@ -11,6 +11,9 @@ import PostItem from "./post-item"
 const EventsWrapper = styled.div`
   display: grid;
   grid-template-columns: 100%;
+  margin-bottom: 10px;
+  background-color: #EFEFEF;
+
   
   
   .tags-container {
@@ -28,11 +31,26 @@ const EventsWrapper = styled.div`
     color: #aaa;
     font-size: 18px;
   } 
+
+  .title-events {
+    margin-left: 7%;
+    color: #EA913A;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
+  .padding-events{
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `
 
 
 /**
- * @function SearchPanel
+ * @function Events
  * @author Uriel
  * SearchPanel will render all the posts that will be filtered by a JS function.
  */
@@ -78,13 +96,27 @@ const Events = () => {
       }
   `)
 
+
   const events = data.events.edges
+  var cover = [];
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'  };
+  events.forEach(filterDate)
+  function filterDate(item) {
+    item.node.excerpt = item.node.excerpt.replace("<p>", "").replace("</p>", "").replace(/\s+/g, '');
+    item.node.excerpt = new Date(item.node.excerpt).toLocaleDateString("es-ES", options);
+    var today = new Date().toLocaleDateString("es-ES", options);
+    if(today  < item.node.excerpt){
+      cover.push(item);
+    }
+  }
+
   return (
     <EventsWrapper>
-      <h3>Eventos</h3>
-      <div className="post-container">
+      <h5 className="title-events">próximos eventos</h5>
+      <div className="padding-events">
         {
-            events.map((elem, key) =>  (<PostItem post={elem} key={key} i={key} />))
+        cover.map((elem, key) =>  (<EventItem post={elem} key={key} i={key} />))
+        
         }
       </div>
     </EventsWrapper>
