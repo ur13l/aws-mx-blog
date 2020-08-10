@@ -1,55 +1,13 @@
+import "react-multi-carousel/lib/styles.css"
 import React, { Component } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import styled from "styled-components"
 import SideNav from "../components/sidenav"
-import "react-multi-carousel/lib/styles.css"
 import Title from "../components/title"
 import PostItem from "../components/post-item"
 import Paginator from "../components/paginator"
 
-/**
- * Styled div of Blog Page
- */
-const BlogWrapper = styled.div`
-  background-color: #FFFFFF;
-  min-height:100vh;
-
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
-
-  .post-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 12px;
-    
-  }
-
-  .cover {
-    grid-row: 1/ span 2
-  }
-  
-
-.post-container > * {
-  padding-bottom: 24px;
-  margin-bottom:36px;
-}
-
-@media screen and (max-width: 768px) {
-  .blog-container, .post-container {
-    grid-template-columns: 12fr;
-  }
-  
-  .entry-container {
-    grid-template-columns: 1fr;
-  }
-}
-`
+import Wrapper from "../styles/blog"
 
 /**
  * @class Blog
@@ -57,48 +15,37 @@ const BlogWrapper = styled.div`
  * Page class to show all blog entries.
  */
 class Blog extends Component {
+  renderPosts = posts =>
+    posts.map((post, key) => <PostItem post={post} key={key} i={key} />)
 
-  /**
-   * @function postLoop
-   * @param {Array<Object>} posts
-   * @author Uriel Infante
-   * Function to iterate over the posts to render on page.
-   */
-  postLoop = posts => {
-    let div = []
-    posts.forEach((post, key) => {
-      if(key > 0) {
-        div.push(<PostItem post={post} key={key} i={key} />)
-      }
-    })
-    return div
-  }
-
-  /**
-   * @function render
-   * @author Uriel Infante
-   * Render function 
-   */
   render() {
-    const posts = this.props.data.posts.edges
-    const numPages = this.props.pageContext.numPages
-    const currentPage = this.props.pageContext.currentPage
+    const {
+      data: {
+        posts: { edges },
+      },
+      pageContext: { numPages, currentPage },
+    } = this.props
+    let postsContent = edges;
 
-    var cover = (<></>);
-    if(posts.length > 0) {
-      cover = (<PostItem post={posts[0]} key="0" i="0" isCover={true} />)
-    }
+    const renderContent = postsContent.length > 0;
+
+    const MainPost = renderContent && (
+      <PostItem post={postsContent[0]} key="0" i="0" isCover={true} />
+    )
     return (
-      <BlogWrapper>
+      <Wrapper>
         <Layout location="/blog">
-          <SEO title="AWS MX Blog"/>
+          <SEO title="AWS MX Blog" />
           <div className="container">
             <div className="blog-container">
               <div className="entry-container">
                 <Title title="Blog" />
-                {cover}
+                {MainPost}
                 <div className="post-container">
-                  {this.postLoop(posts)}
+                  {/* Getting all posts except the first one already used as MainPost */}
+                  {renderContent
+                    ? this.renderPosts(postsContent.slice(1))
+                    : "No hay entradas disponibles"}
                 </div>
                 <Paginator
                   numPages={numPages}
@@ -106,24 +53,21 @@ class Blog extends Component {
                   baseRoute={"/"}
                 />
               </div>
-              <SideNav/>
+              <SideNav />
             </div>
           </div>
         </Layout>
-      </BlogWrapper>
+      </Wrapper>
     )
   }
 }
 
-/**
- * Exporting blog
- */
 export default Blog
-
 
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query {
     posts: allWordpressPost(
@@ -135,7 +79,7 @@ export const postsQuery = graphql`
         node {
           id
           title
-          content 
+          content
           sticky
           excerpt
           slug
@@ -154,7 +98,7 @@ export const postsQuery = graphql`
                 }
               }
             }
-          }  
+          }
           tags {
             id
             name
