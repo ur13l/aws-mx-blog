@@ -1,22 +1,6 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
-import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
 import styled from "styled-components"
 
-
-const GlobalStyles = styled.div`
-  
-
-
+export default styled.div`
   .is-hidden {
     visibility: hidden;
     height: 0px !important;
@@ -69,8 +53,8 @@ const GlobalStyles = styled.div`
   }
 
   .menu-hidden {
-      width:0;
-      color: #171717 !important;
+    width: 0;
+    color: #171717 !important;
   }
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -119,58 +103,10 @@ const GlobalStyles = styled.div`
     .hide-on-xlarge {
       display: none;
     }
-    
+
     .container {
       padding: 0 30px;
       max-width: 1140px;
     }
   }
 `
-
-const Layout = ({ children, location }) => {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(!scrolled);
-      }
-    };
-
-    document.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
-
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <GlobalStyles>
-      <Header siteTitle={data.site.siteMetadata.title}
-              scrolled={scrolled}
-              location={location} />
-      <div>
-        <main>
-          {children}
-        </main>
-      </div>
-    </GlobalStyles>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout
