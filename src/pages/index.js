@@ -1,6 +1,6 @@
 import "react-multi-carousel/lib/styles.css"
 import React, { Component } from "react"
-import Layout from "../components/layout"
+import ScrollingLayout from "../components/ScrollingLayout"
 import SEO from "../components/seo"
 import SideNav from "../components/sidenav"
 import Title from "../components/title"
@@ -34,7 +34,7 @@ class Blog extends Component {
     )
     return (
       <Wrapper>
-        <Layout location="/blog">
+        <ScrollingLayout location="/blog">
           <SEO title="AWS MX Blog" />
           <div className="container">
             <div className="blog-container">
@@ -56,7 +56,7 @@ class Blog extends Component {
               <SideNav />
             </div>
           </div>
-        </Layout>
+        </ScrollingLayout>
       </Wrapper>
     )
   }

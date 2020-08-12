@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import Layout from "../components/layout"
+import ScrollingLayout from "../components/ScrollingLayout"
 import SEO from "../components/seo"
 
 const LayoutWrapper = styled.div`
@@ -166,7 +166,7 @@ const PageLayout = ({
 
   return (
     <LayoutWrapper>
-      <Layout location={location}>
+      <ScrollingLayout location={location}>
         <SEO title={pageTitle || title} description={descriptionSEO} image={image}/>
         <div className="section white-background">
           <div className="container">
@@ -182,7 +182,7 @@ const PageLayout = ({
             <div className="content-news">{children}</div>
           </div>
         </div>
-      </Layout>
+      </ScrollingLayout>
     </LayoutWrapper>
   )
 }

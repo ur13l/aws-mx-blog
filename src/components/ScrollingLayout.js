@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-import Wrapper from "../styles/layout"
+import Wrapper from "../styles/ScrollingLayout"
 import Header from "./header"
 
 class ScrollingLayout extends Component {
