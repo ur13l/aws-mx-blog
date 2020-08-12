@@ -48,7 +48,7 @@ class ScrollingLayout extends Component {
             },
           }) => (
             <Header
-              siteTitle="Test"
+              siteTitle={title}
               scrolled={isScrolled}
               location={location}
             />
