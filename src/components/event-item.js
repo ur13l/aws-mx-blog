@@ -72,14 +72,7 @@ const EventItemWrapper = styled.div`
   }
 `
 
-/**
- * @function EventItem 
- * @param {Object} post
- * @param {Int} i
- * @param {boolean} isCover (default: false)
- * @param {boolean} hiddenDescription (default: false)
- * Component that renders a simple post item.
- */
+
  const EventItem = ({post, i, isCover = false, hiddenDescription = false}) => {
    var clss ="img-container";
    var urlEvent = post.node.content.replace("<p>", "").replace("</p>", "").match(/href="([^"]*)/)[1];
