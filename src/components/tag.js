@@ -5,7 +5,7 @@ import styled from "styled-components"
 import SideNav from "./sidenav"
 import "react-multi-carousel/lib/styles.css"
 import Title from "./title"
-import PostItem from "./post-item"
+import PostItem from "./PostItem"
 import Paginator from "./paginator"
 
 /**
