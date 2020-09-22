@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import ScrollingLayout from "../components/ScrollingLayout"
-import SEO from "../components/seo"
+import SEO from "./SEO"
 
 const LayoutWrapper = styled.div`
   .section {

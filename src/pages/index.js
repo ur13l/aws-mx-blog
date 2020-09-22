@@ -1,7 +1,7 @@
 import "react-multi-carousel/lib/styles.css"
 import React, { Component } from "react"
 import ScrollingLayout from "../components/ScrollingLayout"
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import SideNav from "../components/sidenav"
 import Title from "../components/title"
 import PostItem from "../components/post-item"
