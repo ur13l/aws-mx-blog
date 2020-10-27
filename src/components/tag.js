@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Layout from "./layout"
-import SEO from "./seo"
+import SEO from "./SEO"
 import styled from "styled-components"
 import SideNav from "./sidenav"
 import "react-multi-carousel/lib/styles.css"
