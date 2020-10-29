@@ -4,7 +4,7 @@ import ScrollingLayout from "../components/ScrollingLayout"
 import SEO from "../components/SEO"
 import SideNav from "../components/sidenav"
 import Title from "../components/title"
-import PostItem from "../components/post-item"
+import PostItem from "../components/PostItem"
 import Paginator from "../components/paginator"
 
 import Wrapper from "../styles/blog"
