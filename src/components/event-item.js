@@ -11,10 +11,7 @@ import Wrapper from "../styles/event-item"
 
 const EventItem = ({post, isCover = false, hiddenDescription = false}) => {
     const urlEvent = post.node.content.replace("<p>", "").replace("</p>", "").match(/href="([^"]*)/)[1];
-    let clss ="img-container";
-    if (isCover) {
-        clss="img-cover"
-    }
+    const clss = isCover ? "img-cover" : "img-container";
     return (
       <Wrapper>
           <a href={urlEvent} target="blank">
