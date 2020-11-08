@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import React, { Component } from "react"
 import styled from "styled-components"
 import "../styles/global.css"
-import Logo from '../assets/svg/logo-aws.svg';
+import Logo from "../assets/svg/logo-aws.svg"
 import { FaSearch, FaTimes, FaBars } from "react-icons/fa"
 import SearchPanel from "./search-panel"
 import Menu from "./menu"
@@ -13,10 +13,10 @@ import Menu from "./menu"
  */
 const HeaderWrapper = styled.header`
   width: 100%;
-  box-shadow:  none;
+  box-shadow: none;
   position: absolute;
   z-index: 999999999;
-  
+
   div {
     margin: 0 auto;
     padding: 0.5rem 0rem;
@@ -86,12 +86,11 @@ const HeaderWrapper = styled.header`
     cursor: pointer;
     color: black;
   }
-  
+
   .menu-icon-container:focus,
-  .search-icon-container:focus, 
-  .closable_close:focus {
+  .search-icon-container:focus,
+    .closable_close:focus {
     outline: none;
-    
   }
 
   #header-search  {
@@ -169,9 +168,9 @@ const HeaderWrapper = styled.header`
 
 class Header extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      q: ""
+      q: "",
     }
 
     this.onClickSearchToggle = this.onClickSearchToggle.bind(this)
@@ -192,7 +191,6 @@ class Header extends Component {
     headerSearch.classList.toggle("is-hidden")
     headerContent.classList.toggle("is-hidden")
     headerMobile.classList.toggle("is-hidden")
-
 
     headerInput.classList.toggle("input-full-width")
     headerInput.focus()
@@ -273,8 +271,13 @@ class Header extends Component {
   render() {
     console.log(this.props.location === "/")
     return (
-      <HeaderWrapper style={{backgroundColor: this.props.location === "/" ? "rgba(0,0,0,0)" : "white" }}>
-        <Menu/>
+      <HeaderWrapper
+        style={{
+          backgroundColor:
+            this.props.location === "/" ? "rgba(0,0,0,0)" : "white",
+        }}
+      >
+        <Menu />
         <div id="header-search" className="container is-hidden">
           <span className="closable">
             <input
@@ -285,7 +288,7 @@ class Header extends Component {
             />
             <FaTimes
               className="closable_close"
-              style={{verticalAlign: 'middle'}}
+              style={{ verticalAlign: "middle" }}
               onClick={this.onClickCancel}
               onKeyDown={this.onClickCancel}
               role={"button"}
@@ -295,7 +298,7 @@ class Header extends Component {
         </div>
         <div id="header-content" className="container hide-on-med-and-down">
           <Link to="/">
-            <Logo style={{width:190}}/>
+            <Logo style={{ width: 190 }} />
           </Link>
           <ul>
             <li>
@@ -304,12 +307,12 @@ class Header extends Component {
             <li>
               <div
                 className="search-icon-container pointer"
-                onClick={ this.onClickSearchToggle }
-                onKeyDown={ this.onClickSearchToggle }
+                onClick={this.onClickSearchToggle}
+                onKeyDown={this.onClickSearchToggle}
                 role={"button"}
                 tabIndex={0}
               >
-                <FaSearch style={{verticalAlign: 'middle', height: '100%'}} />
+                <FaSearch style={{ verticalAlign: "middle", height: "100%" }} />
               </div>
             </li>
           </ul>
@@ -317,26 +320,26 @@ class Header extends Component {
         <div id="header-mobile" className="container hide-on-large-and-up">
           <div
             className="menu-icon-container pointer"
-            onClick={ this.openMenu }
-            onKeyDown={ this.openMenu }
+            onClick={this.openMenu}
+            onKeyDown={this.openMenu}
             role={"button"}
             tabIndex={0}
           >
-            <FaBars/>
+            <FaBars />
           </div>
-          <Logo/>
+          <Logo />
 
           <div
             className="search-icon-container pointer"
-            onClick={ this.onClickSearchToggle }
-            onKeyDown={ this.onClickSearchToggle }
+            onClick={this.onClickSearchToggle}
+            onKeyDown={this.onClickSearchToggle}
             role={"button"}
             tabIndex={0}
           >
-            <FaSearch/>
+            <FaSearch />
           </div>
         </div>
-        <SearchPanel id="search-panel" q={this.state.q}/>
+        <SearchPanel id="search-panel" q={this.state.q} />
       </HeaderWrapper>
     )
   }
