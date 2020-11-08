@@ -10,8 +10,8 @@ import Wrapper from "../styles/event-item"
 
 
 const EventItem = ({post, isCover = false, hiddenDescription = false}) => {
-    var clss ="img-container";
-    var urlEvent = post.node.content.replace("<p>", "").replace("</p>", "").match(/href="([^"]*)/)[1];
+    const urlEvent = post.node.content.replace("<p>", "").replace("</p>", "").match(/href="([^"]*)/)[1];
+    let clss ="img-container";
     if (isCover) {
         clss="img-cover"
     }
@@ -32,5 +32,4 @@ const EventItem = ({post, isCover = false, hiddenDescription = false}) => {
       </Wrapper>
     )
 }
-
 export default EventItem
