@@ -10,13 +10,12 @@ const Events = () => {
   events.forEach(filterDate)
   function filterDate(item) {
     const formatToShow = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    const formatToCompare = {year: 'numeric', month: 'long',  hour: '2-digit', minute: '2-digit'  };
     item.node.excerpt = item.node.excerpt.replace("<p>", "").replace("</p>", "").replace(/\s+/g, '');
-    const today = new Date().toLocaleDateString("es-ES", formatToCompare);
-    let eventDay = new Date(item.node.excerpt).toLocaleDateString("es-ES", formatToCompare);
+    const today = new Date().getTime();
+    let eventDay =new Date(item.node.excerpt).getTime();
     item.node.excerpt = new Date(item.node.excerpt).toLocaleDateString("es-ES", formatToShow);
-    if(today > eventDay){
-      eventsElements.push(item);
+    if(today < eventDay){
+       eventsElements.push(item);
     }
   }
     return (
