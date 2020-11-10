@@ -16,7 +16,7 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
   if (currentPage > 1) {
     pageIndicators.push(
       <Link to={baseRoute + (currentPage - 1 === 1 ? "" : currentPage - 1)}>
-        <li>«</li>
+        <li>&lt;</li>
       </Link>
     )
   }
@@ -43,7 +43,7 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
   if (currentPage < numPages) {
     pageIndicators.push(
       <Link to={baseRoute + (currentPage + 1 === 1 ? "" : currentPage + 1)}>
-        <li>»</li>
+        <li>&gt;</li>
       </Link>
     )
   }
