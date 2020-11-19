@@ -70,7 +70,11 @@ export default Blog
 // eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query {
-    posts: allWordpressPost(sort: { fields: [date], order: DESC }, limit: 11) {
+    posts: allWordpressPost(
+      sort: { fields: [date], order: DESC },
+      filter: { categories: { elemMatch: { name: { eq: "blog" } } } }
+      limit: 11
+    ) {
       edges {
         node {
           id
