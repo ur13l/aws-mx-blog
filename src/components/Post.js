@@ -1,25 +1,21 @@
 import React, { Component, useEffect, useState } from "react"
-import { graphql, Link } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
 import PropTypes from "prop-types"
 import PageLayout from "./page-layout"
 import htmlToText from "html-to-text"
 import SideNav from "./sidenav"
 import Moment from "react-moment"
 import "moment/locale/es"
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-} from "react-share"
-import { FaFacebookF, FaTwitter, FaLinkedin } from "react-icons/fa"
 import Wrapper from "../styles/Post"
 import PostFooter from "./PostFooter"
+import { Disqus } from 'gatsby-plugin-disqus';
 
 const Post = ({ data: { wordpressPost: post } }) => {
   const [url, setUrl] = useState()
   useEffect(() => {
     setUrl(window.location.href)
   })
+  console.log(post);
   return (
     <Wrapper>
       <PageLayout
@@ -44,6 +40,13 @@ const Post = ({ data: { wordpressPost: post } }) => {
           <div
             dangerouslySetInnerHTML={{
               __html: post.content,
+            }}
+          />
+          <Disqus
+            config={{
+              url: 'http://localhost:8000/prueba-evento',
+              identifier: post.id,
+              title: post.title,
             }}
           />
           <PostFooter post={post} url={url}/>

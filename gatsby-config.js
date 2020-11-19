@@ -33,6 +33,12 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `awsmxblog`
+      }
+    },
+    {
       resolve: `gatsby-source-wordpress`,
       options: {
         // your WordPress source
