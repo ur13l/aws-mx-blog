@@ -14,11 +14,11 @@ export default styled.div`
     }
   }
 
-  .post-footer-item1 {
+  .post-footer-tags {
     justify-self: left;
   }
 
-  .post-footer-item2 {
+  .post-footer-social {
     justify-self: end;
     display: flex;
     align-content: center;
@@ -47,11 +47,11 @@ export default styled.div`
       justify-content: center;
     }
 
-    .post-footer-item1 {
+    .post-footer-tags {
       justify-self: center;
     }
 
-    .post-footer-item2 {
+    .post-footer-social {
       justify-self: center;
     }
   }

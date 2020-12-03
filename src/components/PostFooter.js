@@ -3,22 +3,26 @@ import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from "re
 import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa/index"
 import React from "react"
 
+const renderTags = post => {
+  const { tags, id } = post
+  if (!tags) return null
 
-const PostFooter = ({post, url}) => (
+  return tags?.map(({ slug, name }, i) => (
+    <Link key={id} to={"/categoria/" + slug}>
+        <span>
+          {" " + name + (tags.length - 1 === i ? " " : ", ")}
+        </span>
+    </Link>
+  ))
+}
+
+const PostFooter = ({ post, url }) => (
   <div className="post-footer">
-    <div className="post-footer-item1">
+    <div className="post-footer-tags">
       Tags:
-      {post.tags?.map((tag, i) => (
-        <Link key={post.id} to={"/categoria/" + tag.slug}>
-                  <span>
-                    {" " +
-                    tag.name +
-                    (post.tags.length - 1 === i ? " " : ", ")}
-                  </span>
-        </Link>
-      ))}
+      {renderTags(post)}
     </div>
-    <div className="post-footer-item2">
+    <div className="post-footer-social">
       <span className="">Compártelo:</span>
       <span className="social">
         <FacebookShareButton

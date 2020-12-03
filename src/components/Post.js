@@ -12,44 +12,45 @@ import { Disqus } from "gatsby-plugin-disqus"
 
 const Post = ({ data: { wordpressPost: post } }) => {
   const [url, setUrl] = useState()
+  const { id, slug, featured_media, date, author, content, title } = post
+
   useLayoutEffect(() => {
     setUrl(window.location.href)
   }, [])
 
-  console.log(post);
   return (
     <Wrapper>
       <PageLayout
         title={"Title placeholder"}
         description={"Description placeholder"}
-        location={post.slug}
-        pageTitle={htmlToText.fromString(post.title)}
-        image={post.featured_media.link}
+        location={slug}
+        pageTitle={htmlToText.fromString(title)}
+        image={featured_media.link}
       >
         <div className="content-item1">
           <div className="title-container">
-            <h1>{htmlToText.fromString(post.title)}</h1>
+            <h1>{htmlToText.fromString(title)}</h1>
             <p className="no-margin accent-text-color">
               <Moment format="LL" locale="es">
-                {post.date}
+                {date}
               </Moment>
             </p>
             <p className="no-margin accent-text-color">
-              Por: {post.author.name}
+              Por: {author.name}
             </p>
           </div>
           <div
             dangerouslySetInnerHTML={{
-              __html: post.content,
+              __html: content,
             }}
           />
           {
-            post.id &&
+            id &&
             <Disqus
               config={{
                 url,
-                identifier: post.slug,
-                title: post.title,
+                identifier: slug,
+                title: title,
               }}
             />
           }
