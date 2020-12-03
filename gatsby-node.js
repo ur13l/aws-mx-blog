@@ -90,6 +90,9 @@ exports.createPages = async ({ graphql, actions }) => {
   tags.forEach(edge => {
     //Paginator options for category template.
     const postsCat = posts.filter(post => {
+      const { tags } = post.node;
+      if (!tags) return false
+
       return post.node.tags.findIndex(e => e.id === edge.node.id) !== -1
     })
 
