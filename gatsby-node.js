@@ -90,7 +90,10 @@ exports.createPages = async ({ graphql, actions }) => {
   tags.forEach(edge => {
     //Paginator options for category template.
     const postsCat = posts.filter(post => {
-      return post.node.tags.findIndex(e => e.id === edge.node.id) !== -1
+      if(post.node.tags) {
+        return post.node.tags.findIndex(e => e.id === edge.node.id) !== -1
+      }
+      return false
     })
 
     const numPages = Math.ceil(postsCat.length / postsPerPage)

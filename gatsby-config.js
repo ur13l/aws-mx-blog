@@ -6,7 +6,8 @@ module.exports = {
     title: `AWS MX Blog`,
     description: `AWS User Group México Blog `,
     author: `@ur13l`,
-    url: `https://awsmx.blog'`
+    url: `https://awsmx.blog'`,
+    siteURL: `http://localhost:8000` //TODO: Modificar en produccións
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

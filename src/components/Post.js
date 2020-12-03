@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useState } from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
+import React, { useLayoutEffect, useState } from "react"
+import { graphql } from "gatsby"
 import PropTypes from "prop-types"
 import PageLayout from "./page-layout"
 import htmlToText from "html-to-text"
@@ -8,13 +8,14 @@ import Moment from "react-moment"
 import "moment/locale/es"
 import Wrapper from "../styles/Post"
 import PostFooter from "./PostFooter"
-import { Disqus } from 'gatsby-plugin-disqus';
+import { Disqus } from "gatsby-plugin-disqus"
 
 const Post = ({ data: { wordpressPost: post } }) => {
   const [url, setUrl] = useState()
-  useEffect(() => {
+  useLayoutEffect(() => {
     setUrl(window.location.href)
-  })
+  }, [])
+
   console.log(post);
   return (
     <Wrapper>
@@ -42,13 +43,17 @@ const Post = ({ data: { wordpressPost: post } }) => {
               __html: post.content,
             }}
           />
-          <Disqus
-            config={{
-              url: 'http://localhost:8000/prueba-evento',
-              identifier: post.id,
-              title: post.title,
-            }}
-          />
+          {
+            post.id &&
+            <Disqus
+              config={{
+                url,
+                identifier: post.slug,
+                title: post.title,
+              }}
+            />
+          }
+
           <PostFooter post={post} url={url}/>
         </div>
         <div className="content-item2">
@@ -65,7 +70,7 @@ Post.propTypes = {
   edges: PropTypes.array,
 }
 
-export default Post;
+export default Post
 
 export const postQuery = graphql`
     query($id: String!) {
