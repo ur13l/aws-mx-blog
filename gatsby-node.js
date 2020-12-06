@@ -41,9 +41,9 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  const postTemplate = path.resolve(`./src/components/post.js`)
-  const pageTemplate = path.resolve(`./src/components/blog.js`)
-  const tagTemplate = path.resolve(`./src/components/tag.js`)
+  const postTemplate = path.resolve(`./src/components/Post.js`)
+  const pageTemplate = path.resolve(`./src/components/Blog.js`)
+  const tagTemplate = path.resolve(`./src/components/Tag.js`)
   const posts = result.data.posts.edges
   const tags = result.data.tags.edges
 
