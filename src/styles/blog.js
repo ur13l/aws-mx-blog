@@ -3,19 +3,27 @@ import { white } from './colors';
 
 const wrapper = styled.div`
   background-color: white;
-//min-height:100vh;
-//
-
+  min-height:100vh;
+  
   .container {
     margin: 0 auto;
     padding: 0 30px;
     max-width: 100%;
   }
     
-  .blog-container {
-    flex-direction: row;
+  .main-content {
+    display: flex;
+    flex-direction: column;
   }
-//
+  
+  .featured-post {
+    
+  }
+  
+  .side-content {
+    
+  }
+
 //.post-container {
 //  display: grid;
 //  grid-template-columns: 1fr 1fr;
