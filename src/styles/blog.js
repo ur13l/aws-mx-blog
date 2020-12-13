@@ -2,14 +2,19 @@ import styled from "styled-components";
 import { white } from './colors';
 
 const wrapper = styled.div`
-background-color: white;
+  background-color: white;
 //min-height:100vh;
 //
-//.blog-container {
-//  display: flex;
-//  width: 100%;
-//  padding-top: 100px;
-//}
+
+  .container {
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 100%;
+  }
+    
+  .blog-container {
+    flex-direction: row;
+  }
 //
 //.post-container {
 //  display: grid;
@@ -35,6 +40,31 @@ background-color: white;
 //    grid-template-columns: 1fr;
 //  }
 //}
+  /*
+  ************
+  Media Queries
+  *************
+   */
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
 `
 
 export default wrapper;

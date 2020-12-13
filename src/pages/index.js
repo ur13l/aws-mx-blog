@@ -36,7 +36,7 @@ class Blog extends Component {
       <Wrapper>
         <ScrollingLayout location="/blog">
           <SEO title="AWS MX Blog" />
-          <div >
+          <div className="container">
             <div >
               <Title title="Blog" />
               {MainPost}
