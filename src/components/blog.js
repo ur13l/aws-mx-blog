@@ -15,14 +15,6 @@ const BlogWrapper = styled.div`
   background-color: #FFFFFF;
   min-height:100vh;
 
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
-
   .post-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,10 +51,6 @@ const BlogWrapper = styled.div`
 }
 
 @media screen and (max-width: 768px) {
-  .blog-container, .post-container {
-    grid-template-columns: 12fr;
-  }
-  
   .entry-container {
     grid-template-columns: 1fr;
   }

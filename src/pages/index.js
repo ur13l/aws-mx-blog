@@ -36,25 +36,23 @@ class Blog extends Component {
       <Wrapper>
         <ScrollingLayout location="/blog">
           <SEO title="AWS MX Blog" />
-          <div className="container">
-            <div className="blog-container">
-              <div className="entry-container">
-                <Title title="Blog" />
-                {MainPost}
-                <div className="post-container">
-                  {/* Getting all posts except the first one already used as MainPost */}
-                  {renderContent
-                    ? this.renderPosts(postsContent.slice(1))
-                    : "No hay entradas disponibles"}
-                </div>
-                <Paginator
-                  numPages={numPages}
-                  currentPage={currentPage}
-                  baseRoute={"/"}
-                />
+          <div >
+            <div >
+              <Title title="Blog" />
+              {MainPost}
+              <div >
+                {/* Getting all posts except the first one already used as MainPost */}
+                {renderContent
+                  ? this.renderPosts(postsContent.slice(1))
+                  : "No hay entradas disponibles"}
               </div>
-              <SideNav />
+              <Paginator
+                numPages={numPages}
+                currentPage={currentPage}
+                baseRoute={"/"}
+              />
             </div>
+            <SideNav />
           </div>
         </ScrollingLayout>
       </Wrapper>
