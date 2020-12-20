@@ -17,42 +17,28 @@ const wrapper = styled.div`
   }
   
   .featured-post {
-    
+    height: 300px;
+    margin-top: 70px;
   }
   
-  .side-content {
-    
+  .posts-and-side-content {
+    display: flex;
+    flex-direction: column;
   }
-
-//.post-container {
-//  display: grid;
-//  grid-template-columns: 1fr 1fr;
-//  grid-gap: 12px;
-//}
-//
-//.cover {
-//  grid-row: 1/ span 2
-//}
-//  
-//.post-container > * {
-//  padding-bottom: 24px;
-//  margin-bottom:36px;
-//}
-//
-//@media screen and (max-width: 768px) {
-//  .blog-container, .post-container {
-//    grid-template-columns: 12fr;
-//  }
-//  
-//  .entry-container {
-//    grid-template-columns: 1fr;
-//  }
-//}
+  
+  .collaborators {
+    height: 200px;
+  }
+  
+  .communities {
+    height: 200px;
+  }
+  
   /*
   ************
   Media Queries
   *************
-   */
+  */
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
     .container {
@@ -65,12 +51,34 @@ const wrapper = styled.div`
     .container {
       max-width: 960px;
     }
+    
+    .featured-post {
+      height: 550px;
+    }
+
+    .posts-and-side-content {
+      flex-direction: row;
+    }
+
+    .side-content {
+      min-width: 300px;
+    }
   }
 
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
     .container {
-      max-width: 1140px;
+      max-width: 100%;
+      padding: 0 50px;
+    }
+
+    .posts-and-side-content {
+      flex-direction: row;
+      padding: 0 100px;
+    }
+    
+    .side-content {
+      min-width: 400px;
     }
   }
 `

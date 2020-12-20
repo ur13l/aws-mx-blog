@@ -29,7 +29,7 @@ class Blog extends Component {
     const posts = this.getPosts();
     return(
       <div className="featured-post">
-        <PostItem post={posts[0]} key="0" i="0" isCover={true} />
+        <PostItem post={posts[0]} key="0" i="0" isFeaturedPost={true} />
       </div>
     );
   }
@@ -63,9 +63,15 @@ class Blog extends Component {
           <div className="container">
             <div className="main-content">
               {this.renderMainPost()}
-              {this.renderPosts()}
-              <div className="side-content">
-                <SideNav />
+              <div className="posts-and-side-content">
+                {this.renderPosts()}
+                <div className="side-content">
+                  <SideNav />
+                  {/*TODO: Add collaborators component*/}
+                  <div className="collaborators" />
+                  {/*TODO: Add communities component*/}
+                  <div className="communities"/>
+                </div>
               </div>
             </div>
           </div>
