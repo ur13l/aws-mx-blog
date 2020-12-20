@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import Layout from "./layout"
 import SEO from "./SEO"
 import styled from "styled-components"
-import SideNav from "./sidenav"
 import "react-multi-carousel/lib/styles.css"
 import Title from "./title"
 import PostItem from "./PostItem"
@@ -142,6 +141,7 @@ export default Blog
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query ($skip: Int!, $limit: Int!) {
     posts: allWordpressPost(
