@@ -34,7 +34,7 @@ class Blog extends Component {
     const posts = this.getPosts();
     return (
       <div className="featured-post">
-        <PostItem post={posts[0]} key="0" i="0" isFeaturedPost={true} />
+        <DeprecatedPostItem post={posts[0]} key="0" i="0" isFeaturedPost={true} />
       </div>
     );
   };
