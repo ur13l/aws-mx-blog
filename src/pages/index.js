@@ -8,6 +8,7 @@ import Wrapper from '../styles/blog';
 import { graphql } from 'gatsby';
 import Paginator from "../components/paginator"
 import SectionTitle from "../components/common/SectionTitle"
+import PostsTable from "../components/posts/PostsTable"
 
 class Blog extends Component {
   arePostsAvailable = () => {
@@ -39,22 +40,13 @@ class Blog extends Component {
   };
 
   renderPosts = () => {
-    if (!this.arePostsAvailable()) {
-      return 'No hay entradas disponibles';
-    }
-
+    const {
+      pageContext: { numPages, currentPage },
+    } = this.props
     // Getting all posts except the first one already used as MainPost
     const posts = this.getPosts().slice(1);
     return (
-      <div className="posts">
-        <SectionTitle titleText="entradas recientes" />
-        {posts.map((post, key) => <PostItem post={post} key={key} i={key} />)}
-        <Paginator
-          numPages={numPages}
-          currentPage={currentPage}
-          baseRoute={"/"}
-        />
-      </div>
+      <PostsTable posts={posts} currentPage={currentPage || 0} totalNumberOfPages={numPages || 0} />
     );
   };
 
