@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from 'prop-types';
 import SectionTitle from "../common/SectionTitle";
-import DeprecatedPostItem from "../DeprecatedPostItem";
+import PostItem from "./PostItem";
 import Paginator from "../paginator";
 
 const PostsTable = ({ totalNumberOfPages, currentPage, posts }) => {
@@ -16,7 +16,7 @@ const PostsTable = ({ totalNumberOfPages, currentPage, posts }) => {
   return (
     <>
       <SectionTitle titleText="entradas recientes" />
-      {posts.map((post, key) => <DeprecatedPostItem post={post} key={key} i={key} />)}
+      {posts.map((post, key) => <PostItem post={post} key={key} i={key} />)}
       <Paginator
         numPages={totalNumberOfPages}
         currentPage={currentPage}
