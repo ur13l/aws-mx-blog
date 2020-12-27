@@ -6,6 +6,8 @@ import SideNav from '../components/sidenav';
 import PostItem from '../components/PostItem';
 import Wrapper from '../styles/blog';
 import { graphql } from 'gatsby';
+import Paginator from "../components/paginator"
+import SectionTitle from "../components/common/SectionTitle"
 
 class Blog extends Component {
   arePostsAvailable = () => {
@@ -45,9 +47,13 @@ class Blog extends Component {
     const posts = this.getPosts().slice(1);
     return (
       <div className="posts">
-        {posts.map((post, key) => (
-          <PostItem post={post} key={key} i={key} />
-        ))}
+        <SectionTitle titleText="entradas recientes" />
+        {posts.map((post, key) => <PostItem post={post} key={key} i={key} />)}
+        <Paginator
+          numPages={numPages}
+          currentPage={currentPage}
+          baseRoute={"/"}
+        />
       </div>
     );
   };
