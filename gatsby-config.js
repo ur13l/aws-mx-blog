@@ -18,6 +18,17 @@ module.exports = {
         path: `${__dirname}/src/assets/images/`,
       },
     },
+    {
+      resolve: `gatsby-source-graphql`,
+      options: {
+        typeName:`Post`,
+        fieldName: `posts`,
+        url: `https://dmuk5ecbxvefnlvmiojnku6eqy.appsync-api.us-east-2.amazonaws.com/graphql`,
+        headers: {
+          'x-api-key': 'da2-aj25szx3endolbmhnq2hmzc7sy' 
+        }  
+      }
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sharp`,

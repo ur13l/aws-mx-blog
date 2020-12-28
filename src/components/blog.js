@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Layout from "./layout"
+import PageLayout from "./page-layout"
 import SEO from "./SEO"
 import styled from "styled-components"
 import "react-multi-carousel/lib/styles.css"
@@ -107,7 +107,7 @@ class Blog extends Component {
     }
     return (
       <BlogWrapper>
-        <Layout location="/blog">
+        <PageLayout location="/blog">
           <SEO title="AWS MX Blog"/>
           <div className="container">
             <div className="blog-container">
@@ -126,7 +126,7 @@ class Blog extends Component {
             </div>
           </div>
 
-        </Layout>
+        </PageLayout>
       </BlogWrapper>
     )
   }
