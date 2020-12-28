@@ -122,6 +122,7 @@ export default Tag
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query ($id: String!, $skip: Int!, $limit: Int!) {
     posts: allWordpressPost(
