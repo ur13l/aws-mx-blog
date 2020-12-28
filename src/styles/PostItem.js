@@ -3,6 +3,10 @@ import styled from "styled-components"
 export default styled.div`
   display: inline-block;
   width: 100%;
+
+  a {
+    color: black;
+  }
   
   .post-date {
     margin: 0;
@@ -37,7 +41,23 @@ export default styled.div`
     height: 200px;
   }
 
-  a {
-    color: black;
+  .img-cover {
+    .gatsby-image-wrapper {
+      height: 200px; 
+    }
+  }
+
+  /*
+  ************
+  Media Queries
+  *************
+  */
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .img-cover {
+      .gatsby-image-wrapper {
+        height: 400px;
+      }
+    }
   }
 `

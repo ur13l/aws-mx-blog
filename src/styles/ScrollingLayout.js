@@ -10,12 +10,6 @@ export default styled.div`
     overflow: hidden;
   }
 
-  .container {
-    margin: 0 auto;
-    max-width: 1280px;
-    padding: 0.5rem 0rem;
-  }
-
   p.deflat {
     font-style: italic;
   }
@@ -65,11 +59,6 @@ export default styled.div`
     .hide-on-med-and-down {
       display: none;
     }
-
-    .container {
-      padding: 0 30px;
-      max-width: 100%;
-    }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
@@ -77,20 +66,12 @@ export default styled.div`
     .hide-on-med-and-down {
       display: none;
     }
-    .container {
-      padding: 0 30px;
-      max-width: 720px;
-    }
   }
 
   /* Large devices (laptops/desktops, 992px and up) */
   @media only screen and (min-width: 992px) and (max-width: 1280px) {
     .hide-on-large-and-up {
       display: none;
-    }
-    .container {
-      padding: 0 30px;
-      max-width: 960px;
     }
   }
 
@@ -102,11 +83,6 @@ export default styled.div`
 
     .hide-on-xlarge {
       display: none;
-    }
-
-    .container {
-      padding: 0 30px;
-      max-width: 1140px;
     }
   }
 `

@@ -15,14 +15,6 @@ const TagWrapper = styled.div`
   background-color: #FFFFFF;
   min-height:99%;
 
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
-
   .post-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -130,6 +122,7 @@ export default Tag
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query ($id: String!, $skip: Int!, $limit: Int!) {
     posts: allWordpressPost(

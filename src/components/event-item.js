@@ -1,7 +1,5 @@
 
 import React from "react"
-import {Link} from "gatsby"
-import styled from "styled-components"
 import Img from "gatsby-image"
 import "../styles/global.css"
 import Wrapper from "../styles/event-item"

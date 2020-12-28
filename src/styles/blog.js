@@ -1,43 +1,86 @@
 import styled from "styled-components";
+import { white } from './colors';
 
 const wrapper = styled.div`
-background-color: #FFFFFF;
-min-height:100vh;
-
-.blog-container {
-  display: grid;
-  grid-template-columns: 9fr 3fr;
-  width: 100%;
-  padding-top: 100px;
-
-}
-
-.post-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 12px;
+  background-color: white;
+  min-height:100vh;
   
-}
+  .container {
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 100%;
+  }
+    
+  .main-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .featured-post {
+    height: 300px;
+    margin-top: 70px;
+  }
+  
+  .posts-and-side-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .collaborators {
+    height: 200px;
+  }
+  
+  .communities {
+    height: 200px;
+  }
+  
+  /*
+  ************
+  Media Queries
+  *************
+  */
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
 
-.cover {
-  grid-row: 1/ span 2
-}
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+    
+    .featured-post {
+      height: 550px;
+    }
 
+    .posts-and-side-content {
+      flex-direction: row;
+    }
 
-.post-container > * {
-padding-bottom: 24px;
-margin-bottom:36px;
-}
+    .side-content {
+      min-width: 300px;
+    }
+  }
 
-@media screen and (max-width: 768px) {
-.blog-container, .post-container {
-  grid-template-columns: 12fr;
-}
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .container {
+      max-width: 100%;
+      padding: 0 50px;
+    }
 
-.entry-container {
-  grid-template-columns: 1fr;
-}
-}
+    .posts-and-side-content {
+      flex-direction: row;
+      padding: 0 100px;
+    }
+    
+    .side-content {
+      min-width: 400px;
+    }
+  }
 `
 
 export default wrapper;
