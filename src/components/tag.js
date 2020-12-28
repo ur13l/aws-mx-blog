@@ -15,14 +15,6 @@ const TagWrapper = styled.div`
   background-color: #FFFFFF;
   min-height:99%;
 
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
-
   .post-container {
     display: grid;
     grid-template-columns: 1fr 1fr;

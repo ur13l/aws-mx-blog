@@ -16,7 +16,7 @@ function normalizeText(text) {
     .replace("</p>", "")
 }
 
-const PostItem = ({ post, isCover = false, hideDescription = false }) => {
+const PostItem = ({ post, isFeaturedPost = false, hideDescription = false }) => {
   const { node: postInfo } = post;
   const { slug, title, featured_media, date, author, excerpt } = postInfo;
 
@@ -31,14 +31,14 @@ const PostItem = ({ post, isCover = false, hideDescription = false }) => {
         truncateText="…"
         text={normalizeText(excerpt)}
         textTruncateChild=""
-        style={isCover ? { fontSize: 16 } : { fontSize: 16, lineHeight: "normal" }}
+        style={isFeaturedPost ? { fontSize: 16 } : { fontSize: 16, lineHeight: "normal" }}
       /></>
   }
 
   return (
     <Wrapper>
       <Link to={`/${slug}`}>
-        <div className={isCover ? "img-cover" : "img-container"}>
+        <div className={isFeaturedPost ? "img-cover" : "img-container"}>
           <Img fluid={featured_media.localFile.childImageSharp.fluid} />
         </div>
         <div className="post-content">
@@ -47,7 +47,7 @@ const PostItem = ({ post, isCover = false, hideDescription = false }) => {
             formatter={formatter}
             date={date}
           />
-          {isCover ?
+          {isFeaturedPost ?
             <h3 dangerouslySetInnerHTML={{ __html: title }} /> :
             <h4 style={{ color: "black" }} dangerouslySetInnerHTML={{ __html: title }} />
           }
