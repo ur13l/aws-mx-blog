@@ -1,25 +1,8 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Img from "gatsby-image"
-
-const Wrapper  = styled.div`
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  height: 500px;
-  min-width: 425px;
-  width: 100%;
-  margin-top: 30px;
-  
-  &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    cursor: pointer;
-  }
-`;
-
-const ImgStyle = {
-  height: "250px"
-}
+import Img from 'gatsby-image';
+import { Wrapper, WrapperImg,ImgStyles, ContentWrapper, Title, Excerpt } from './styles';
+import { strip } from '../../utils/textUtils';
 
 const PostItem = ({ post }) => {
   const { node: postInfo } = post;
@@ -27,7 +10,11 @@ const PostItem = ({ post }) => {
 
   return (
     <Wrapper>
-      <Img fluid={featured_media.localFile.childImageSharp.fluid} imgStyle={ImgStyle} />
+      <Img fluid={featured_media.localFile.childImageSharp.fluid} style={WrapperImg} imgStyle={ImgStyles} />
+      <ContentWrapper>
+        <Title>{strip(title)}</Title>
+        <Excerpt>{strip(excerpt)}</Excerpt>
+      </ContentWrapper>
     </Wrapper>
   )
 };

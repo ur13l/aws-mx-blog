@@ -11,6 +11,7 @@ const Title = styled.h1`
   font-size: 1em;
   color: ${props => props.theme.text_color};
   text-transform: lowercase;
+  margin-bottom: 15px
 `;
 
 const SectionTitle = ({ titleText }) => {
