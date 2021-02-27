@@ -11,174 +11,131 @@ import Paginator from "./paginator"
  * Styled div of Blog Page
  */
 const BlogWrapper = styled.div`
-  background-color: #FFFFFF;
-  min-height:100vh;
-
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
+  background-color: #ffffff;
+  min-height: 100vh;
 
   .post-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 12px;
-    
   }
 
   .cover {
-    grid-row: 1/ span 2
+    grid-row: 1 / span 2;
   }
-  
 
   .my-masonry-grid {
-  display: -webkit-box; /* Not needed if autoprefixing */
-  display: -ms-flexbox; /* Not needed if autoprefixing */
-  display: flex;
-  margin-left: -30px; /* gutter size offset */
-  width: auto;
-}
-.my-masonry-grid_column {
-  padding-left: 30px; /* gutter size */
-  background-clip: padding-box;
-}
- 
-/* Style your items */
-.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
-  background: white;
-  margin-bottom: 30px;
-}
-
-.post-container > * {
-  padding-bottom: 24px;
-  margin-bottom:36px;
-}
-
-@media screen and (max-width: 768px) {
-  .blog-container, .post-container {
-    grid-template-columns: 12fr;
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
   }
-  
-  .entry-container {
-    grid-template-columns: 1fr;
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
   }
-}
+
+  /* Style your items */
+  .my-masonry-grid_column > div {
+    /* change div to reference your elements you put in <Masonry> */
+    background: white;
+    margin-bottom: 30px;
+  }
+
+  .post-container > * {
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .entry-container {
+      grid-template-columns: 1fr;
+    }
+  }
 `
 
-/**
- * @class Blog
- * @author Uriel Infante
- * Page class to show all blog entries.
- */
-class Blog extends Component {
-
-  /**
-   * @function postLoop
-   * @param {Array<Object>} posts
-   * @author Uriel Infante
-   * Function to iterate over the posts to render on page.
-   */
-  postLoop = posts => {
-    let div = []
-    posts.forEach((post, key) => {
-      if(key > 0) {
-        div.push(<PostItem post={post} key={key} i={key} />)
-      }
-    })
-    return div
-  }
-
-  /**
-   * @function render
-   * @author Uriel Infante
-   * Render function of component
-   */
-  render() {
-    var posts = this.props.data.posts.edges
-    const numPages = this.props.pageContext.numPages
-    const currentPage = this.props.pageContext.currentPage
-
-    var cover = (<></>);
-    if(posts.length > 0) {
-      cover = (<PostItem post={posts[0]} key="0" i="0" isCover={true} />)
-    }
-    return (
-      <BlogWrapper>
-        <PageLayout location="/blog">
-          <SEO title="AWS MX Blog"/>
-          <div className="container">
-            <div className="blog-container">
-              <div className="entry-container">
-                <Title title="Blog" subtitle="AWS MX"/>
-                {cover}
-                <div className="post-container">
-                  {this.postLoop(posts)}
-                </div>
-                <Paginator
-                  numPages={numPages}
-                  currentPage={currentPage}
-                  baseRoute={"/publicaciones/"}
-                />
-              </div>
+const Blog = ({
+  data: {
+    posts: {
+      postsByCreatedAt: { items: posts },
+    },
+  },
+  pageContext: { numPages, currentPage },
+}) => (
+  <BlogWrapper>
+    <PageLayout location="/blog">
+      <SEO title="AWS MX Blog" />
+      <div className="container">
+        <div className="blog-container">
+          <div className="entry-container">
+            <Title title="Blog" subtitle="AWS MX" />
+            {/*cover*/}
+            <div className="post-container">
+              {posts.map((post, i) => (
+                <PostItem post={post} key={i} i={i} isCover={i === 0} />
+              ))}
             </div>
+            <Paginator
+              numPages={numPages}
+              currentPage={currentPage}
+              baseRoute={"/publicaciones/"}
+            />
           </div>
-
-        </PageLayout>
-      </BlogWrapper>
-    )
-  }
-}
+        </div>
+      </div>
+    </PageLayout>
+  </BlogWrapper>
+)
 
 /**
  * Exporting blog
  */
 export default Blog
 
-
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
-  query ($skip: Int!, $limit: Int!) {
-    posts: allWordpressPost(
-      sort: { fields: [date], order: DESC },
-      limit: $limit,
-      skip: $skip
-    ) {
-      edges {
-        node {
+  query($nextToken: String, $limit: Int!) {
+    posts {
+      postsByCreatedAt(
+        type: "Post"
+        sortDirection: DESC
+        limit: $limit
+        nextToken: $nextToken
+      ) {
+        items {
           id
           title
-          content 
-          sticky
+          content
           excerpt
           slug
-          date
-          author {
-            name
-          }
-          featured_media {
-            link
-            caption
-            localFile {
-              childImageSharp {
-                # Try editing the "maxWidth" value to generate resized images.
-                fluid(maxWidth: 468) {
-                  ...GatsbyImageSharpFluid
-                }
+          createdAt
+          featured_media
+          featured_mediaSharp {
+            childImageSharp {
+              # Try editing the "maxWidth" value to generate resized images.
+              fluid(maxWidth: 468) {
+                ...GatsbyImageSharpFluid
               }
             }
-          }  
-          tags {
-            id
-            name
           }
-          categories {
-            id
-            name
+          tags {
+            items {
+              tag {
+                name
+              }
+            }
+          }
+          authors {
+            items {
+              author {
+                firstName
+                lastName
+              }
+            }
           }
         }
       }

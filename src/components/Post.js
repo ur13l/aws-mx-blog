@@ -10,9 +10,13 @@ import Wrapper from "../styles/Post"
 import PostFooter from "./PostFooter"
 import { Disqus } from "gatsby-plugin-disqus"
 
-const Post = ({ data: { wordpressPost: post } }) => {
+const Post = ({
+  data: {
+    posts: { getPost: post },
+  },
+}) => {
   const [url, setUrl] = useState()
-  const { id, slug, featured_media, date, author, content, title } = post
+  const { id, slug, featured_media, createdAt, authors, content, title } = post
 
   useLayoutEffect(() => {
     setUrl(window.location.href)
@@ -25,18 +29,18 @@ const Post = ({ data: { wordpressPost: post } }) => {
         description={"Description placeholder"}
         location={slug}
         pageTitle={htmlToText.fromString(title)}
-        image={featured_media.link}
+        image={featured_media}
       >
         <div className="content-item1">
           <div className="title-container">
             <h1>{htmlToText.fromString(title)}</h1>
             <p className="no-margin accent-text-color">
               <Moment format="LL" locale="es">
-                {date}
+                {createdAt}
               </Moment>
             </p>
             <p className="no-margin accent-text-color">
-              Por: {author.name}
+              Por: {authors.items[0].author.firstName}
             </p>
           </div>
           <div
@@ -44,8 +48,7 @@ const Post = ({ data: { wordpressPost: post } }) => {
               __html: content,
             }}
           />
-          {
-            id &&
+          {id && (
             <Disqus
               config={{
                 url,
@@ -53,12 +56,12 @@ const Post = ({ data: { wordpressPost: post } }) => {
                 title: title,
               }}
             />
-          }
+          )}
 
-          <PostFooter post={post} url={url}/>
+          <PostFooter post={post} url={url} />
         </div>
         <div className="content-item2">
-          <SideNav/>
+          <SideNav />
         </div>
         <div className="content-item3"></div>
       </PageLayout>
@@ -74,40 +77,47 @@ Post.propTypes = {
 export default Post
 
 export const postQuery = graphql`
-    query($id: String!) {
-        wordpressPost(id: { eq: $id }) {
-            id
-            title
-            content
-            slug
-            date
-            tags {
-                id
-                name
-                description
-                slug
+  query($id: ID!) {
+    posts {
+      getPost(id: $id) {
+        id
+        title
+        content
+        slug
+        createdAt
+        tags {
+          items {
+            tag {
+              id
+              name
+              slug
             }
-            featured_media {
-                link
-                caption
-                localFile {
-                    childImageSharp {
-                        # Try editing the "maxWidth" value to generate resized images.
-                        fluid(maxWidth: 468) {
-                            ...GatsbyImageSharpFluid
-                        }
-                    }
-                }
+          }
+        }
+        featured_media
+        featured_mediaSharp {
+          childImageSharp {
+            # Try editing the "maxWidth" value to generate resized images.
+            fluid(maxWidth: 468) {
+              ...GatsbyImageSharpFluid
             }
+          }
+        }
+        authors {
+          items {
             author {
-                name
+              firstName
+              lastName
             }
+          }
         }
-        site {
-            siteMetadata {
-                title
-                url
-            }
-        }
+      }
     }
+    site {
+      siteMetadata {
+        title
+        url
+      }
+    }
+  }
 `

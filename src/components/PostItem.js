@@ -12,45 +12,66 @@ import Wrapper from "../styles/PostItem"
 const formatter = buildFormatter(esStrings)
 
 function normalizeText(text) {
-  return text.replace("<p>", "")
-    .replace("</p>", "")
+  return text.replace("<p>", "").replace("</p>", "")
 }
 
-const PostItem = ({ post, isCover = false, hideDescription = false }) => {
-  const { node: postInfo } = post;
-  const { slug, title, featured_media, date, author, excerpt } = postInfo;
+const PostItem = ({
+  post,
+  isFeaturedPost = false,
+  hideDescription = false,
+}) => {
+  const {
+    slug,
+    title,
+    featured_media,
+    featured_mediaSharp,
+    createdAt,
+    authors,
+    excerpt,
+  } = post
 
   const renderPostDescription = () => {
-    if (hideDescription)
-      return null;
+    if (hideDescription) return null
 
-    return <><p className="author-name">{author.name}</p>
-      <TextTruncate
-        line={3}
-        element="span"
-        truncateText="…"
-        text={normalizeText(excerpt)}
-        textTruncateChild=""
-        style={isCover ? { fontSize: 16 } : { fontSize: 16, lineHeight: "normal" }}
-      /></>
+    return (
+      <>
+        <p className="author-name">{authors.items[0].firstName}</p>
+        <TextTruncate
+          line={3}
+          element="span"
+          truncateText="…"
+          text={normalizeText(excerpt)}
+          textTruncateChild=""
+          style={
+            isFeaturedPost
+              ? { fontSize: 16 }
+              : { fontSize: 16, lineHeight: "normal" }
+          }
+        />
+      </>
+    )
   }
 
   return (
     <Wrapper>
       <Link to={`/${slug}`}>
-        <div className={isCover ? "img-cover" : "img-container"}>
-          <Img fluid={featured_media.localFile.childImageSharp.fluid} />
+        <div className={isFeaturedPost ? "img-cover" : "img-container"}>
+          <Img fluid={featured_mediaSharp.childImageSharp.fluid} />
         </div>
         <div className="post-content">
           <TimeAgo
             className="post-date"
             formatter={formatter}
-            date={date}
+            date={createdAt}
           />
-          {isCover ?
-            <h3 dangerouslySetInnerHTML={{ __html: title }} /> :
-            <h4 style={{ color: "black" }} dangerouslySetInnerHTML={{ __html: title }} />
-          }
+          {isFeaturedPost ? (
+            <h3 dangerouslySetInnerHTML={{ __html: title }} />
+          ) : (
+            <h4
+              style={{ color: "black" }}
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+          )}
           {renderPostDescription()}
         </div>
       </Link>

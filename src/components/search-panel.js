@@ -38,7 +38,7 @@ const SearchPanelWrapper = styled.div`
       margin: 0;
     }
   }
-  
+
   .search-panel2 {
     grid-column: 1 / span 2;
     align-self: center;
@@ -48,7 +48,6 @@ const SearchPanelWrapper = styled.div`
     margin-top: -130px;
   }
 
-
   .search-hidden {
     display: none;
   }
@@ -56,18 +55,18 @@ const SearchPanelWrapper = styled.div`
   .entry-section-title {
     grid-column: 1 / span 2;
   }
-  
 
   /* Small and median devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (max-width: 992px) {
-    #search-panel, .search-panel1 {
+    #search-panel,
+    .search-panel1 {
       grid-template-columns: 1fr;
     }
-  
+
     .entry-section-title {
       grid-column: 1;
     }
- 
+
     .search-panel1 {
       margin: 0;
       padding: 24px 24px;
@@ -97,21 +96,22 @@ const selectPost = () => {
 const SearchPanel = ({ q }) => {
   const data = useStaticQuery(graphql`
     query {
-      posts: allWordpressPost(
-        sort: { fields: [date], order: DESC }
-      ) {
-        edges {
-          node {
+      posts {
+        postsByCreatedAt(type: "Post", sortDirection: DESC) {
+          items {
             id
             title
             content
             excerpt
             slug
-            date
-            sticky
-            categories {
-              id
-              name
+            createdAt
+            tags {
+              items {
+                tag {
+                  name
+                  slug
+                }
+              }
             }
           }
         }
@@ -121,10 +121,10 @@ const SearchPanel = ({ q }) => {
 
   // Filtering the info that will be shown on the panel, the regex are used to
   // replace accented words and other characters to get a clean search (eg. á -> a)
-  const postsShown = data.posts.edges
+  const postsShown = data.posts.postsByCreatedAt.items
     .filter(
       elem =>
-        elem.node.title
+        elem.title
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
@@ -142,29 +142,26 @@ const SearchPanel = ({ q }) => {
       <div id="search-panel" className="is-hidden">
         <div
           className={
-            "search-panel1 container " + (postsShown.length === 0 ? "search-hidden" : "")
+            "search-panel1 container " +
+            (postsShown.length === 0 ? "search-hidden" : "")
           }
         >
           <h3 className={"entry-section-title"}>Entradas</h3>
           {postsShown.map(entry => (
             <Link
-              key={entry.node.id}
+              key={entry.id}
               onClick={() => {
                 selectPost()
               }}
-              to={"/publicaciones/entrada/" + entry.node.slug}
-
+              to={"/publicaciones/entrada/" + entry.slug}
             >
               <div className={"post-item"}>
-
-                <h4>{htmlToText.fromString(entry.node.title)}</h4>
+                <h4>{htmlToText.fromString(entry.title)}</h4>
                 <TextTruncate
                   line={2}
                   element="span"
                   truncateText="…"
-                  text={entry.node.excerpt
-                    .replace("<p>", "")
-                    .replace("</p>", "")}
+                  text={entry.excerpt.replace("<p>", "").replace("</p>", "")}
                   textTruncateChild=""
                 />
               </div>
@@ -172,13 +169,9 @@ const SearchPanel = ({ q }) => {
           ))}
         </div>
 
-
         <div
           className={
-            "search-panel2 " +
-            (postsShown.length !== 0
-              ? "search-hidden"
-              : "")
+            "search-panel2 " + (postsShown.length !== 0 ? "search-hidden" : "")
           }
         >
           <span>No se encontraron resultados</span>

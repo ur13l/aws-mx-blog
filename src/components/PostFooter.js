@@ -1,17 +1,22 @@
 import { Link } from "gatsby"
-import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from "react-share"
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from "react-share"
 import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa/index"
 import React from "react"
 
 const renderTags = post => {
-  const { tags, id } = post
-  if (!tags) return null
+  const {
+    tags: { items },
+    id,
+  } = post
+  if (!items) return null
 
-  return tags?.map(({ slug, name }, i) => (
+  return items?.map(({ tag: { slug, name } }, i) => (
     <Link key={id} to={"/categoria/" + slug}>
-        <span>
-          {" " + name + (tags.length - 1 === i ? " " : ", ")}
-        </span>
+      <span>{" " + name + (items.length - 1 === i ? " " : ", ")}</span>
     </Link>
   ))
 }
@@ -30,7 +35,7 @@ const PostFooter = ({ post, url }) => (
           quote={post.title}
           className="social-button facebook"
         >
-          <FaFacebookF/>
+          <FaFacebookF />
         </FacebookShareButton>
       </span>
       <span className="social">
@@ -39,7 +44,7 @@ const PostFooter = ({ post, url }) => (
           title={post.title}
           className="social-button twitter"
         >
-          <FaTwitter/>
+          <FaTwitter />
         </TwitterShareButton>
       </span>
       <span className="social">
@@ -48,13 +53,11 @@ const PostFooter = ({ post, url }) => (
           title={post.title}
           className="social-button linkedin"
         >
-          <FaLinkedin/>
+          <FaLinkedin />
         </LinkedinShareButton>
       </span>
     </div>
   </div>
-
 )
-
 
 export default PostFooter

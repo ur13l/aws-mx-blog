@@ -1,59 +1,82 @@
+import "react-multi-carousel/lib/styles.css"
 import React, { Component } from "react"
 import ScrollingLayout from "../components/ScrollingLayout"
 import SEO from "../components/SEO"
 import SideNav from "../components/sidenav"
-import Title from "../components/title"
 import PostItem from "../components/PostItem"
 import Paginator from "../components/paginator"
-import "react-multi-carousel/lib/styles.css"
-
 import Wrapper from "../styles/blog"
 
-/**
- * @class Blog
- * @author Uriel Infante
- * Page class to show all blog entries.
- */
 class Blog extends Component {
-  renderPosts = posts =>
-    posts.map((post, key) => <PostItem post={post} key={key} i={key} />)
+  arePostsAvailable = () => {
+    const posts = this.getPosts()
+    return posts.length > 0
+  }
 
-  render() {
+  getPosts = () => {
     const {
       data: {
-        posts: { edges },
+        posts: {
+          postsByCreatedAt: { items },
+        },
       },
+    } = this.props
+    return items
+  }
+
+  renderMainPost = () => {
+    if (!this.arePostsAvailable()) {
+      return null
+    }
+    const posts = this.getPosts()
+    return (
+      <div className="featured-post">
+        <PostItem post={posts[0]} key="0" i="0" isFeaturedPost={true} />
+      </div>
+    )
+  }
+
+  renderPosts = () => {
+    if (!this.arePostsAvailable()) {
+      return "No hay entradas disponibles"
+    }
+    const {
       pageContext: { numPages, currentPage },
     } = this.props
-    let postsContent = edges;
-
-    const renderContent = postsContent.length > 0;
-
-    const MainPost = renderContent && (
-      <PostItem post={postsContent[0]} key="0" i="0" isCover={true} />
+    // Getting all posts except the first one already used as MainPost
+    const posts = this.getPosts().slice(1)
+    return (
+      <div className="posts">
+        {posts.map((post, key) => (
+          <PostItem post={post} key={key} i={key} />
+        ))}
+        <Paginator
+          numPages={numPages}
+          currentPage={currentPage}
+          baseRoute={"/"}
+        />
+      </div>
     )
+  }
+
+  render() {
     return (
       <Wrapper>
         <ScrollingLayout location="/blog">
           <SEO title="AWS MX Blog" />
           <div className="container">
-            <div className="blog-container">
-              <div className="entry-container">
-                <Title title="Blog" />
-                {MainPost}
-                <div className="post-container">
-                  {/* Getting all posts except the first one already used as MainPost */}
-                  {renderContent
-                    ? this.renderPosts(postsContent.slice(1))
-                    : "No hay entradas disponibles"}
+            <div className="main-content">
+              {this.renderMainPost()}
+              <div className="posts-and-side-content">
+                {this.renderPosts()}
+                <div className="side-content">
+                  <SideNav />
+                  {/*TODO: Add collaborators component*/}
+                  <div className="collaborators" />
+                  {/*TODO: Add communities component*/}
+                  <div className="communities" />
                 </div>
-                <Paginator
-                  numPages={numPages}
-                  currentPage={currentPage}
-                  baseRoute={"/"}
-                />
               </div>
-              <SideNav />
             </div>
           </div>
         </ScrollingLayout>
@@ -70,42 +93,30 @@ export default Blog
 // eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query {
-    posts: allWordpressPost(
-      sort: { fields: [date], order: DESC },
-      filter: { categories: { elemMatch: { name: { eq: "blog" } } } }
-      limit: 11
-    ) {
-      edges {
-        node {
+    posts {
+      postsByCreatedAt(type: "Post", sortDirection: DESC, limit: 11) {
+        items {
           id
           title
           content
-          sticky
           excerpt
           slug
-          date
-          author {
-            name
-          }
-          featured_media {
-            link
-            caption
-            localFile {
-              childImageSharp {
-                # Try editing the "maxWidth" value to generate resized images.
-                fluid(maxWidth: 468) {
-                  ...GatsbyImageSharpFluid_tracedSVG
-                }
+          createdAt
+          authors {
+            items {
+              author {
+                firstName
+                lastName
               }
             }
           }
-          tags {
-            id
-            name
-          }
-          categories {
-            id
-            name
+          featured_media
+          featured_mediaSharp {
+            childImageSharp {
+              fluid(maxWidth: 468) {
+                ...GatsbyImageSharpFluid_tracedSVG
+              }
+            }
           }
         }
       }

@@ -8,6 +8,51 @@
 const path = require(`path`)
 const slash = require(`slash`)
 
+//Query que devuelve todos los posts y tags
+const queryAllPostsAndTags = async graphql => {
+  const result = await graphql(`
+    query {
+      posts {
+        listPosts {
+          items {
+            id
+            content
+            title
+            slug
+          }
+        }
+        listTags {
+          items {
+            id
+            name
+            slug
+          }
+        }
+      }
+    }
+  `)
+  return result.data.posts
+}
+
+const createAllPostPages = async (posts, createPage, postTemplate) => {
+  posts.forEach(async post => {
+    const { id, slug } = post
+    createPage({
+      // will be the url for the page
+      path: `/${slug}`,
+      // specify the component template of your choice
+      component: slash(postTemplate),
+      // In the ^template's GraphQL query, 'id' will be available
+      // as a GraphQL variable to query for this posts's data.
+      context: {
+        id,
+      },
+    })
+  })
+}
+
+const queryPostsByPage = async () => {}
+
 /**
  * Method that create pages dynamically.
  * Pages created: all posts entries, glosary entries and category entries (These include
@@ -15,121 +60,111 @@ const slash = require(`slash`)
  */
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  // query content for WordPress posts
-  const result = await graphql(`
-    query {
-      posts: allWordpressPost {
-        edges {
-          node {
-            id
-            slug
-            tags {
-              id
-            }
-          }
-        }
-      }
-      tags: allWordpressTag {
-        edges {
-          node {
-            id
-            slug
-            name
-          }
-        }
-      }
-    }
-  `)
 
+  const postsAndTags = await queryAllPostsAndTags(graphql)
   const postTemplate = path.resolve(`./src/components/Post.js`)
   const pageTemplate = path.resolve(`./src/components/Blog.js`)
   const tagTemplate = path.resolve(`./src/components/Tag.js`)
-  const posts = result.data.posts.edges
-  const tags = result.data.tags.edges
+  const { items: posts } = postsAndTags.listPosts
+  const { items: tags } = postsAndTags.listTags
+  await createAllPostPages(posts, createPage, postTemplate)
 
-  posts.forEach(edge => {
+  const limit = 2,
+    numPages = Math.ceil(posts.length / limit)
+  let nextToken = null
+  Array.from({ length: numPages }).forEach(async (_, i) => {
+    const paginatedResults = await graphql(`
+      query {
+        posts {
+          postsByCreatedAt (type:"Post" sortDirection:DESC limit:${limit} nextToken:${
+      nextToken ? `"${nextToken}"` : null
+    }){
+            nextToken
+          }
+        }
+      }
+    `)
+    nextToken = paginatedResults.data.posts.postsByCreatedAt.nextToken
+
     createPage({
-      // will be the url for the page
-      path: `/${edge.node.slug}`,
-      // specify the component template of your choice
-      component: slash(postTemplate),
-      // In the ^template's GraphQL query, 'id' will be available
-      // as a GraphQL variable to query for this posts's data.
-      context: {
-        id: edge.node.id,
-      },
-    })
-  })
-
-
-  //Paginator options for category template.
-  const postsPerPage = 11
-  const numPages = Math.ceil(posts.length / postsPerPage)
-  Array.from({ length: numPages }).forEach((_, i) => {
-    createPage({
-      path:
-        i === 0
-          ? `/`
-          : `/${i + 1}`,
+      path: i === 0 ? `/` : `/${i + 1}`,
       component: slash(pageTemplate),
       context: {
-        id: `blog-${i+1}`,
-        limit: postsPerPage,
-        skip: i * postsPerPage,
+        id: `blog-${i + 1}`,
+        limit,
+        nextToken: nextToken,
         numPages,
         currentPage: i + 1,
       },
     })
   })
 
+  tags.forEach(async tag => {
+    let numPages = 0,
+      _nextToken = null
+    const { id, name: tagName, slug } = tag,
+      pages = []
+    do {
+      //do While para que lo haga la primera vez con el nextToken = null
+      const results = await graphql(`
+        query {
+          posts {
+            postsByTag(tagID:"${id}" limit: ${limit} nextToken:${
+        _nextToken ? `"${_nextToken}"` : null
+      }) {
+              nextToken
+              items {
+                id
+              }
+            }
+          }
+        }
+      `)
+      const {
+        data: {
+          posts: {
+            postsByTag: { nextToken, items },
+          },
+        },
+      } = results
+      _nextToken = nextToken
+      /* 
+        Cuando el número de elementos totales es divisible entre la variable limit (Ejemplo: 20 elementos y limit=10), se genera iteración 
+        extra, ya que la última página devuelve un nextToken, pero no devuelve items. Esta condición previene que se genere una página extra 
+        sin contenido.  
+      */
+      if (items.length > 0) {
+        numPages++ //Se suma un valor al número de páginas
+        pages.push({ nextToken, currentPage: numPages }) //Se guarda el valor que ayudará en la creación de las páginas posteriormente
+      }
+    } while (_nextToken !== null)
 
-
-  /**
-   * Creating an array from the number of pages and category posts per page.
-   */
-  tags.forEach(edge => {
-    //Paginator options for category template.
-    const postsCat = posts.filter(post => {
-      const { tags } = post.node;
-      if (!tags) return false
-
-      return post.node.tags.findIndex(e => e.id === edge.node.id) !== -1
-    })
-
-    const numPages = Math.ceil(postsCat.length / postsPerPage)
-
-    Array.from({ length: numPages }).forEach((_, i) => {
+    pages.forEach(async page => {
+      const { currentPage } = page
       createPage({
         path:
-          i === 0
-            ? `publicaciones/${edge.node.slug}`
-            : `publicaciones/${edge.node.slug}/${i + 1}`,
+          currentPage === 1
+            ? `publicaciones/${slug}`
+            : `publicaciones/${slug}/${currentPage}`,
         component: slash(tagTemplate),
         context: {
-          id: edge.node.id,
-          limit: postsPerPage,
-          skip: i * postsPerPage,
+          id,
+          limit,
+          nextToken,
           numPages,
-          currentPage: i + 1,
-          tagName: edge.node.name,
-          slug: edge.node.slug
+          currentPage,
+          tagName,
+          slug,
         },
       })
     })
   })
 }
 
-
-exports.onCreateWebpackConfig = ({
-  stage,
-  plugins,
-  actions,
-}) => {
+exports.onCreateWebpackConfig = ({ stage, plugins, actions }) => {
   actions.setWebpackConfig({
     module: {
-      rules: [
-       
-      ],
+      rules: [],
     },
     plugins: [
       plugins.define({
@@ -138,9 +173,9 @@ exports.onCreateWebpackConfig = ({
     ],
     node: {
       console: true,
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty'
-    }
+      fs: "empty",
+      net: "empty",
+      tls: "empty",
+    },
   })
 }
