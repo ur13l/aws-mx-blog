@@ -33,7 +33,7 @@ export default styled.div`
   }
   
   .search-icon {
-    padding-right: 0px !important;
+    padding-right: 40px !important;
   }
 
   li {
@@ -47,14 +47,22 @@ export default styled.div`
     background: none;
     border: none;
     border-bottom: 2px solid white;
-    color: black;
-    font-size: 14px;
+    color: white;
+    font-size: 18px;
     transition: width 0.3s;
     padding-right: 48px;
     width: 0%;
     height: 0%;
     float: right;
     box-sizing: border-box;
+  }
+
+  .large-input ::placeholder {
+    color: white;
+  }
+
+  .large-input ::-webkit-search-cancel-button {
+    display: none;
   }
 
   .large-input:focus {

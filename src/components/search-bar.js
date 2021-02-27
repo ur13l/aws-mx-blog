@@ -122,7 +122,7 @@ class SearchBar extends Component {
               onKeyUp={this.onKeyUp}
               className="large-input"
               type="search"
-              placeholder="Buscar..."
+              placeholder="Buscar"
             />
             <FaTimes
               className="closable_close"

@@ -14,12 +14,12 @@ const SearchPanelWrapper = styled.div`
   padding: 0 !important;
 
   #search-panel {
-    top: 70px;
+    top: 150px;
     position: fixed;
     width: 100%;
     height: calc(100vh - 70px);
     background: rgba(255, 255, 255, 0.95);
-    z-index: 2000;
+    z-index: 1;
     display: grid;
     overflow: scroll;
     grid-template-columns: 1fr;
@@ -62,6 +62,10 @@ const SearchPanelWrapper = styled.div`
   @media only screen and (max-width: 992px) {
     #search-panel, .search-panel1 {
       grid-template-columns: 1fr;
+    }
+
+    #search-panel {
+      top: 85px;
     }
   
     .entry-section-title {
