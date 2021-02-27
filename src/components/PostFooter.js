@@ -8,15 +8,11 @@ import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa/index"
 import React from "react"
 
 const renderTags = post => {
-  const {
-    tags: { items },
-    id,
-  } = post
-  if (!items) return null
-
-  return items?.map(({ tag: { slug, name } }, i) => (
-    <Link key={id} to={"/categoria/" + slug}>
-      <span>{" " + name + (items.length - 1 === i ? " " : ", ")}</span>
+  const { tags, id } = post
+  if (!tags) return null
+  return tags?.map(({ slug, name }, i) => (
+    <Link key={`${id}_${i}`} to={"/categoria/" + slug}>
+      <span>{" " + name + (tags.length - 1 === i ? " " : ", ")}</span>
     </Link>
   ))
 }
