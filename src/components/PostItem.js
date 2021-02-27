@@ -1,7 +1,6 @@
 import "../styles/global.css"
 import React from "react"
 import { Link } from "gatsby"
-import Img from "gatsby-image"
 import TimeAgo from "react-timeago"
 import esStrings from "react-timeago/lib/language-strings/es"
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter"
@@ -20,15 +19,7 @@ const PostItem = ({
   isFeaturedPost = false,
   hideDescription = false,
 }) => {
-  const {
-    slug,
-    title,
-    featured_media,
-    featured_mediaSharp,
-    createdAt,
-    authors,
-    excerpt,
-  } = post
+  const { slug, title, featured_media, createdAt, authors, excerpt } = post
 
   const renderPostDescription = () => {
     if (hideDescription) return null
@@ -55,9 +46,14 @@ const PostItem = ({
   return (
     <Wrapper>
       <Link to={`/${slug}`}>
-        <div className={isFeaturedPost ? "img-cover" : "img-container"}>
-          <Img fluid={featured_mediaSharp.childImageSharp.fluid} />
-        </div>
+        <div
+          className={isFeaturedPost ? "img-cover" : "img-container"}
+          style={{
+            backgroundImage: `url(${featured_media})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: `cover`,
+          }}
+        ></div>
         <div className="post-content">
           <TimeAgo
             className="post-date"

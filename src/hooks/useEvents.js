@@ -26,14 +26,6 @@ export const useEvents = () => {
               }
             }
             featured_media
-            featured_mediaSharp {
-              childImageSharp {
-                # Try editing the "maxWidth" value to generate resized images.
-                fluid(maxWidth: 468) {
-                  ...GatsbyImageSharpFluid_tracedSVG
-                }
-              }
-            }
           }
         }
       }

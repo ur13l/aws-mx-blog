@@ -111,13 +111,6 @@ export const postsQuery = graphql`
             }
           }
           featured_media
-          featured_mediaSharp {
-            childImageSharp {
-              fluid(maxWidth: 468) {
-                ...GatsbyImageSharpFluid_tracedSVG
-              }
-            }
-          }
         }
       }
     }

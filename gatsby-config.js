@@ -21,7 +21,7 @@ module.exports = {
     {
       resolve: `gatsby-source-graphql`,
       options: {
-        typeName: `Post`,
+        typeName: `POST`,
         fieldName: `posts`,
         url: process.env.API_URL,
         headers: {
@@ -29,7 +29,6 @@ module.exports = {
         },
       },
     },
-
     `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-plugin-manifest`,

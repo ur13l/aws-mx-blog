@@ -69,7 +69,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { items: tags } = postsAndTags.listTags
   await createAllPostPages(posts, createPage, postTemplate)
 
-  const limit = 2,
+  const limit = 10,
     numPages = Math.ceil(posts.length / limit)
   let nextToken = null
   Array.from({ length: numPages }).forEach(async (_, i) => {
@@ -87,7 +87,7 @@ exports.createPages = async ({ graphql, actions }) => {
     nextToken = paginatedResults.data.posts.postsByCreatedAt.nextToken
 
     createPage({
-      path: i === 0 ? `/` : `/${i + 1}`,
+      path: i === 0 ? `/publicaciones/` : `/publicaciones/${i + 1}`,
       component: slash(pageTemplate),
       context: {
         id: `blog-${i + 1}`,

@@ -269,7 +269,6 @@ class Header extends Component {
    * Render method
    */
   render() {
-    console.log(this.props.location === "/")
     return (
       <HeaderWrapper
         style={{

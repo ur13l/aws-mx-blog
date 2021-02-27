@@ -53,7 +53,6 @@ const Tag = ({
   },
   pageContext: { tagName, numPages, currentPage, slug },
 }) => {
-  console.log(items)
   return (
     <TagWrapper>
       <PageLayout location="/blog">
@@ -103,14 +102,7 @@ export const postsQuery = graphql`
             excerpt
             slug
             createdAt
-            featured_mediaSharp {
-              childImageSharp {
-                # Try editing the "maxWidth" value to generate resized images.
-                fluid(maxWidth: 468) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
+            featured_media
             tags {
               items {
                 tag {

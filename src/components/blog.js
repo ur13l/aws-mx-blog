@@ -64,8 +64,7 @@ const Blog = ({
   pageContext: { numPages, currentPage },
 }) => (
   <BlogWrapper>
-    <PageLayout location="/blog">
-      <SEO title="AWS MX Blog" />
+    <PageLayout title="AWSMX Blog" location="/blog">
       <div className="container">
         <div className="blog-container">
           <div className="entry-container">
@@ -114,14 +113,6 @@ export const postsQuery = graphql`
           slug
           createdAt
           featured_media
-          featured_mediaSharp {
-            childImageSharp {
-              # Try editing the "maxWidth" value to generate resized images.
-              fluid(maxWidth: 468) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
           tags {
             items {
               tag {
