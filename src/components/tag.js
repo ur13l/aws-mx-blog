@@ -1,12 +1,12 @@
 import React, { Component } from "react"
-import Layout from "./layout"
+import PageLayout from "./page-layout"
 import SEO from "./SEO"
 import styled from "styled-components"
 import SideNav from "./sidenav"
-import "react-multi-carousel/lib/styles.css"
 import Title from "./title"
 import PostItem from "./PostItem"
 import Paginator from "./paginator"
+import "react-multi-carousel/lib/styles.css"
 
 /**
  * Styled div of Tag Page
@@ -14,14 +14,6 @@ import Paginator from "./paginator"
 const TagWrapper = styled.div`
   background-color: #FFFFFF;
   min-height:99%;
-
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
 
   .post-container {
     display: grid;
@@ -95,7 +87,7 @@ class Tag extends Component {
     }
     return (
       <TagWrapper>
-        <Layout location="/blog">
+        <PageLayout location="/blog">
           <SEO title={`${tagName} | Rocktech R+D`}/>
           <div className="container">
             <div className="blog-container">
@@ -115,7 +107,7 @@ class Tag extends Component {
             </div>
           </div>
 
-        </Layout>
+        </PageLayout>
       </TagWrapper>
     )
   }
@@ -130,6 +122,7 @@ export default Tag
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query ($id: String!, $skip: Int!, $limit: Int!) {
     posts: allWordpressPost(

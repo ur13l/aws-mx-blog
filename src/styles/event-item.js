@@ -3,10 +3,6 @@ import styled from "styled-components"
 export default styled.div`
   display: inline-block;
   width: 100%;
-
-  a {
-    color: black;
-  }
   
   .post-date {
     margin: 0;
@@ -33,6 +29,17 @@ export default styled.div`
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
+
+  .date-name {
+    margin-top: 12px;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    font-size: 0.4rem;
+    line-height: 1.1;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+
   .link-blog {
     padding: 0 15px;
   }
@@ -41,23 +48,17 @@ export default styled.div`
     height: 200px;
   }
 
-  .img-cover {
-    .gatsby-image-wrapper {
-      height: 200px; 
-    }
+  a {
+    color: black;
   }
 
-  /*
-  ************
-  Media Queries
-  *************
-  */
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .img-cover {
-      .gatsby-image-wrapper {
-        height: 400px;
-      }
-    }
+  .event-content{
+    text-align: end;
+  }
+  
+  .event-item-title{
+    color: black !important;
+    text-transform: none !important;
   }
 `
+

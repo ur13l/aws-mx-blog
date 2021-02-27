@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import Layout from "./layout"
 import SEO from "./SEO"
 import styled from "styled-components"
-import SideNav from "./sidenav"
 import "react-multi-carousel/lib/styles.css"
 import Title from "./title"
 import PostItem from "./PostItem"
@@ -14,14 +13,6 @@ import Paginator from "./paginator"
 const BlogWrapper = styled.div`
   background-color: #FFFFFF;
   min-height:100vh;
-
-  .blog-container {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    width: 100%;
-    padding-top: 100px;
-
-  }
 
   .post-container {
     display: grid;
@@ -59,10 +50,6 @@ const BlogWrapper = styled.div`
 }
 
 @media screen and (max-width: 768px) {
-  .blog-container, .post-container {
-    grid-template-columns: 12fr;
-  }
-  
   .entry-container {
     grid-template-columns: 1fr;
   }
@@ -142,6 +129,7 @@ export default Blog
 /**
  * Query to retrieve every entry from blog
  */
+// eslint-disable-next-line no-undef
 export const postsQuery = graphql`
   query ($skip: Int!, $limit: Int!) {
     posts: allWordpressPost(

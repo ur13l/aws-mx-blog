@@ -41,7 +41,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  const postTemplate = path.resolve(`./src/components/post.js`)
+  const postTemplate = path.resolve(`./src/components/Post.js`)
   const pageTemplate = path.resolve(`./src/components/blog.js`)
   const tagTemplate = path.resolve(`./src/components/tag.js`)
   const posts = result.data.posts.edges
@@ -90,6 +90,9 @@ exports.createPages = async ({ graphql, actions }) => {
   tags.forEach(edge => {
     //Paginator options for category template.
     const postsCat = posts.filter(post => {
+      const { tags } = post.node;
+      if (!tags) return false
+
       return post.node.tags.findIndex(e => e.id === edge.node.id) !== -1
     })
 

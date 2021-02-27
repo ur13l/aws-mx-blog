@@ -6,7 +6,8 @@ module.exports = {
     title: `AWS MX Blog`,
     description: `AWS User Group México Blog `,
     author: `@ur13l`,
-    url: `https://awsmx.blog'`
+    url: `https://awsmx.blog'`,
+    siteURL: `http://localhost:8000` //TODO: Modificar en produccións
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -31,6 +32,12 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/assets/images/favicon.png`, // This path is relative to the root of the site.
       },
+    },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `awsmxblog`
+      }
     },
     {
       resolve: `gatsby-source-wordpress`,
