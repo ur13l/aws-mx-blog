@@ -1,11 +1,10 @@
-import React, { Component } from "react"
-import PageLayout from "./page-layout"
-import SEO from "./SEO"
-import styled from "styled-components"
-import "react-multi-carousel/lib/styles.css"
-import Title from "./title"
-import PostItem from "./PostItem"
-import Paginator from "./paginator"
+import React, { Component } from 'react';
+import PageLayout from './page-layout';
+import styled from 'styled-components';
+import 'react-multi-carousel/lib/styles.css';
+import Title from './title';
+import PostItem from './PostItem';
+import Paginator from './paginator';
 
 /**
  * Styled div of Blog Page
@@ -53,7 +52,7 @@ const BlogWrapper = styled.div`
       grid-template-columns: 1fr;
     }
   }
-`
+`;
 
 const Blog = ({
   data: {
@@ -78,19 +77,19 @@ const Blog = ({
             <Paginator
               numPages={numPages}
               currentPage={currentPage}
-              baseRoute={"/publicaciones/"}
+              baseRoute={'/publicaciones/'}
             />
           </div>
         </div>
       </div>
     </PageLayout>
   </BlogWrapper>
-)
+);
 
 /**
  * Exporting blog
  */
-export default Blog
+export default Blog;
 
 /**
  * Query to retrieve every entry from blog
@@ -132,4 +131,4 @@ export const postsQuery = graphql`
       }
     }
   }
-`
+`;

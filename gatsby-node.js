@@ -5,8 +5,8 @@
  */
 
 // You can delete this file if you're not using it
-const path = require(`path`)
-const slash = require(`slash`)
+const path = require(`path`);
+const slash = require(`slash`);
 
 //Query que devuelve todos los posts y tags
 const queryAllPostsAndTags = async graphql => {
@@ -30,13 +30,13 @@ const queryAllPostsAndTags = async graphql => {
         }
       }
     }
-  `)
-  return result.data.posts
-}
+  `);
+  return result.data.posts;
+};
 
 const createAllPostPages = async (posts, createPage, postTemplate) => {
   posts.forEach(async post => {
-    const { id, slug } = post
+    const { id, slug } = post;
     createPage({
       // will be the url for the page
       path: `/${slug}`,
@@ -47,31 +47,24 @@ const createAllPostPages = async (posts, createPage, postTemplate) => {
       context: {
         id,
       },
-    })
-  })
-}
+    });
+  });
+};
 
-const queryPostsByPage = async () => {}
-
-/**
- * Method that create pages dynamically.
- * Pages created: all posts entries, glosary entries and category entries (These include
- * a paginator with the posts per category).
- */
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
-  const postsAndTags = await queryAllPostsAndTags(graphql)
-  const postTemplate = path.resolve(`./src/components/Post.js`)
-  const pageTemplate = path.resolve(`./src/components/Blog.js`)
-  const tagTemplate = path.resolve(`./src/components/Tag.js`)
-  const { items: posts } = postsAndTags.listPosts
-  const { items: tags } = postsAndTags.listTags
-  await createAllPostPages(posts, createPage, postTemplate)
+  const postsAndTags = await queryAllPostsAndTags(graphql);
+  const postTemplate = path.resolve(`./src/components/Post.js`);
+  const pageTemplate = path.resolve(`./src/components/Blog.js`);
+  const tagTemplate = path.resolve(`./src/components/Tag.js`);
+  const { items: posts } = postsAndTags.listPosts;
+  const { items: tags } = postsAndTags.listTags;
+  await createAllPostPages(posts, createPage, postTemplate);
 
   const limit = 10,
-    numPages = Math.ceil(posts.length / limit)
-  let nextToken = null
+    numPages = Math.ceil(posts.length / limit);
+  let nextToken = null;
   Array.from({ length: numPages }).forEach(async (_, i) => {
     const paginatedResults = await graphql(`
       query {
@@ -83,8 +76,8 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-    `)
-    nextToken = paginatedResults.data.posts.postsByCreatedAt.nextToken
+    `);
+    nextToken = paginatedResults.data.posts.postsByCreatedAt.nextToken;
 
     createPage({
       path: i === 0 ? `/publicaciones/` : `/publicaciones/${i + 1}`,
@@ -96,14 +89,14 @@ exports.createPages = async ({ graphql, actions }) => {
         numPages,
         currentPage: i + 1,
       },
-    })
-  })
+    });
+  });
 
   tags.forEach(async tag => {
     let numPages = 0,
-      _nextToken = null
+      _nextToken = null;
     const { id, name: tagName, slug } = tag,
-      pages = []
+      pages = [];
     do {
       //do While para que lo haga la primera vez con el nextToken = null
       const results = await graphql(`
@@ -119,28 +112,28 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
-      `)
+      `);
       const {
         data: {
           posts: {
             postsByTag: { nextToken, items },
           },
         },
-      } = results
-      _nextToken = nextToken
+      } = results;
+      _nextToken = nextToken;
       /* 
         Cuando el número de elementos totales es divisible entre la variable limit (Ejemplo: 20 elementos y limit=10), se genera iteración 
         extra, ya que la última página devuelve un nextToken, pero no devuelve items. Esta condición previene que se genere una página extra 
         sin contenido.  
       */
       if (items.length > 0) {
-        numPages++ //Se suma un valor al número de páginas
-        pages.push({ nextToken, currentPage: numPages }) //Se guarda el valor que ayudará en la creación de las páginas posteriormente
+        numPages++; //Se suma un valor al número de páginas
+        pages.push({ nextToken, currentPage: numPages }); //Se guarda el valor que ayudará en la creación de las páginas posteriormente
       }
-    } while (_nextToken !== null)
+    } while (_nextToken !== null);
 
     pages.forEach(async page => {
-      const { currentPage } = page
+      const { currentPage } = page;
       createPage({
         path:
           currentPage === 1
@@ -156,10 +149,10 @@ exports.createPages = async ({ graphql, actions }) => {
           tagName,
           slug,
         },
-      })
-    })
-  })
-}
+      });
+    });
+  });
+};
 
 exports.onCreateWebpackConfig = ({ stage, plugins, actions }) => {
   actions.setWebpackConfig({
@@ -173,9 +166,9 @@ exports.onCreateWebpackConfig = ({ stage, plugins, actions }) => {
     ],
     node: {
       console: true,
-      fs: "empty",
-      net: "empty",
-      tls: "empty",
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
     },
-  })
-}
+  });
+};

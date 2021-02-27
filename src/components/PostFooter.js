@@ -1,21 +1,21 @@
-import { Link } from "gatsby"
+import { Link } from 'gatsby';
 import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
-} from "react-share"
-import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa/index"
-import React from "react"
+} from 'react-share';
+import { FaFacebookF, FaLinkedin, FaTwitter } from 'react-icons/fa/index';
+import React from 'react';
 
 const renderTags = post => {
-  const { tags, id } = post
-  if (!tags) return null
+  const { tags, id } = post;
+  if (!tags) return null;
   return tags?.map(({ slug, name }, i) => (
-    <Link key={`${id}_${i}`} to={"/categoria/" + slug}>
-      <span>{" " + name + (tags.length - 1 === i ? " " : ", ")}</span>
+    <Link key={`${id}_${i}`} to={'/categoria/' + slug}>
+      <span>{' ' + name + (tags.length - 1 === i ? ' ' : ', ')}</span>
     </Link>
-  ))
-}
+  ));
+};
 
 const PostFooter = ({ post, url }) => (
   <div className="post-footer">
@@ -54,6 +54,6 @@ const PostFooter = ({ post, url }) => (
       </span>
     </div>
   </div>
-)
+);
 
-export default PostFooter
+export default PostFooter;
