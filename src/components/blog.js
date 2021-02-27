@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PageLayout from './page-layout';
 import styled from 'styled-components';
 import 'react-multi-carousel/lib/styles.css';
