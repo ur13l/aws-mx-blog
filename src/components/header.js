@@ -3,14 +3,13 @@ import React, { Component } from "react"
 import { Link } from "gatsby"
 import Logo from '../assets/svg/aws-logo.svg';
 import PropTypes from "prop-types"
-import SearchBar from "./search-bar"
 import Menu from "./menu"
-import Wrapper from "../styles/SearchBar"
+import SearchBar from "./search-bar"
+import Wrapper from "../styles/Header"
 
 /**
  * HeaderWrapper element, used to set style to a component.
  */
-
 /**
  * Header component
  * @param {string} siteTitle
@@ -18,9 +17,6 @@ import Wrapper from "../styles/SearchBar"
  */
 
 class Header extends Component {
-  /**
-   * Render method
-   */
   render() {
     return (
       <Wrapper style={{backgroundColor: this.props.location === "/" ? "rgba(0,0,0,0)" : "white" }}>
