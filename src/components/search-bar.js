@@ -52,7 +52,7 @@ const SearchBar = () => {
   const onKeyUp = () => {
     const headerInput = document.getElementsByClassName("large-input")[0]
     const searchPanel = document.getElementById("search-panel")
-    this.onChangeSearchText(headerInput.value)
+    onChangeSearchText(headerInput.value)
     // If the length of the search content is less than 3 characters, do not show the search panel.
     if (headerInput.value.length >= 3) {
       searchPanel.classList.remove("is-hidden")
