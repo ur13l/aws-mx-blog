@@ -10,7 +10,8 @@ import { FaTimes } from "react-icons/fa"
  */
 const MenuWrapper = styled.div`
   background: white;
-  position: fixed;
+  position: absolute;
+  left: -60%;
   width: 60%;
   height: 100vh;
   overflow: hidden;
@@ -47,8 +48,11 @@ const MenuWrapper = styled.div`
 class Menu extends Component {
 
   onClickClose() {
-    const menu = document.getElementById("drawer-menu")
-    menu.classList.add("menu-hidden")
+    //const menu = document.getElementById("drawer-menu")
+    //menu.classList.add("menu-hidden")
+    const main_content = document.getElementById("main-content")
+    main_content.classList.remove("main-content-mobile-effect")
+    main_content.classList.add("main-content-mobile-second-effect")
   }
 
   /**
@@ -56,14 +60,22 @@ class Menu extends Component {
    */
   render() {
     return (
-      <MenuWrapper id="drawer-menu" className="menu-hidden">
+      <MenuWrapper id="drawer-menu">
         <div className="menu-close-icon">
           <FaTimes onClick={() => this.onClickClose()} />
         </div>
         <div>
-          <Link onClick={()=>{this.onClickClose()}} to="/">blog</Link>
-          <Link onClick={()=>{this.onClickClose()}} to="/">eventos</Link>
-          <Link onClick={()=>{this.onClickClose()}} to="/">contacto</Link>
+          <ul>
+            <li>
+              <Link onClick={()=>{this.onClickClose()}} to="/">blog</Link>
+            </li>
+            <li>
+              <Link onClick={()=>{this.onClickClose()}} to="/">eventos</Link>
+            </li>
+            <li>
+              <Link onClick={()=>{this.onClickClose()}} to="/">contacto</Link>
+            </li>
+          </ul>
         </div>
       </MenuWrapper>
     )

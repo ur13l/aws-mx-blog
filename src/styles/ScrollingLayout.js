@@ -1,6 +1,23 @@
 import styled from "styled-components"
 
 export default styled.div`
+
+  background-color: white;
+
+  &.main-content-mobile-effect {
+    position:absolute;
+    transition:transform 0.4s ease-in-out;
+    transform: translateX(60%);
+  }
+  
+  
+  &.main-content-mobile-second-effect {
+    position:absolute;
+    transition:transform 0.4s ease-in-out;
+    transform: translateX(0%);
+  }
+  
+  
   .is-hidden {
     visibility: hidden;
     height: 0px !important;
@@ -13,7 +30,7 @@ export default styled.div`
   p.deflat {
     font-style: italic;
   }
-
+  
   .uppercase {
     text-transform: uppercase;
   }

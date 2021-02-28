@@ -6,6 +6,7 @@ export default styled.header`
   position: absolute;
   z-index: 999999999;
   
+  
   div {
     margin: 0 auto;
 
@@ -32,6 +33,20 @@ export default styled.header`
     left: 0;
     bottom: 0;
   }
+  
+  
+  
+  #main-content {
+    background-color: white;
+    min-height:100vh;
+    position:absolute;
+    transition:all 0.2s linear;
+    left: 0;
+    }
+  
+  
+  
+  
 
   a {
     vertical-align: middle;

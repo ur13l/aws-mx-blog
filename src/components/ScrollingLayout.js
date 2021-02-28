@@ -31,7 +31,7 @@ class ScrollingLayout extends Component {
     const { children, location } = this.props
     const { isScrolled } = this.state
     return (
-      <Wrapper>
+      <Wrapper id="main-content">
         <StaticQuery
           query={graphql`
             query SiteTitleQuery {
