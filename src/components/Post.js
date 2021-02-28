@@ -1,32 +1,32 @@
-import React, { useLayoutEffect, useState } from "react"
-import { graphql } from "gatsby"
-import PropTypes from "prop-types"
-import PageLayout from "./page-layout"
-import htmlToText from "html-to-text"
-import SideNav from "./sidenav"
-import Moment from "react-moment"
-import "moment/locale/es"
-import Wrapper from "../styles/Post"
-import PostFooter from "./PostFooter"
-import { Disqus } from "gatsby-plugin-disqus"
+import React, { useLayoutEffect, useState } from 'react';
+import { graphql } from 'gatsby';
+import PropTypes from 'prop-types';
+import PageLayout from './page-layout';
+import htmlToText from 'html-to-text';
+import SideNav from './sidenav';
+import Moment from 'react-moment';
+import 'moment/locale/es';
+import Wrapper from '../styles/Post';
+import PostFooter from './PostFooter';
+import { Disqus } from 'gatsby-plugin-disqus';
 
 const Post = ({
   data: {
     posts: { getPost: post },
   },
 }) => {
-  const [url, setUrl] = useState()
-  const { id, slug, featured_media, createdAt, authors, content, title } = post
+  const [url, setUrl] = useState();
+  const { id, slug, featured_media, createdAt, authors, content, title } = post;
 
   useLayoutEffect(() => {
-    setUrl(window.location.href)
-  }, [])
+    setUrl(window.location.href);
+  }, []);
 
   return (
     <Wrapper>
       <PageLayout
-        title={"Title placeholder"}
-        description={"Description placeholder"}
+        title={'Title placeholder'}
+        description={'Description placeholder'}
         location={slug}
         pageTitle={htmlToText.fromString(title)}
         image={featured_media}
@@ -66,15 +66,15 @@ const Post = ({
         <div className="content-item3"></div>
       </PageLayout>
     </Wrapper>
-  )
-}
+  );
+};
 
 Post.propTypes = {
   data: PropTypes.object.isRequired,
   edges: PropTypes.array,
-}
+};
 
-export default Post
+export default Post;
 
 export const postQuery = graphql`
   query($id: ID!) {
@@ -112,4 +112,4 @@ export const postQuery = graphql`
       }
     }
   }
-`
+`;
