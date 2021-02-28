@@ -40,9 +40,6 @@ class Blog extends Component {
     if (!this.arePostsAvailable()) {
       return 'No hay entradas disponibles';
     }
-    const {
-      pageContext: { numPages, currentPage },
-    } = this.props;
 
     // Getting all posts except the first one already used as MainPost
     const posts = this.getPosts().slice(1);
