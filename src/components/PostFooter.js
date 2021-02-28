@@ -27,7 +27,7 @@ const PostFooter = ({ post, url }) => (
       <span className="">Compártelo:</span>
       <span className="social">
         <FacebookShareButton
-          url={url}
+          url={`${url}`}
           quote={post.title}
           className="social-button facebook"
         >
@@ -36,7 +36,7 @@ const PostFooter = ({ post, url }) => (
       </span>
       <span className="social">
         <TwitterShareButton
-          url={url}
+          url={`${url}`}
           title={post.title}
           className="social-button twitter"
         >
@@ -45,7 +45,7 @@ const PostFooter = ({ post, url }) => (
       </span>
       <span className="social">
         <LinkedinShareButton
-          url={url}
+          url={`${url}`}
           title={post.title}
           className="social-button linkedin"
         >
