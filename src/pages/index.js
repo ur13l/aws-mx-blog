@@ -4,7 +4,6 @@ import ScrollingLayout from '../components/ScrollingLayout';
 import SEO from '../components/SEO';
 import SideNav from '../components/sidenav';
 import PostItem from '../components/PostItem';
-import Paginator from '../components/paginator';
 import Wrapper from '../styles/blog';
 import { graphql } from 'gatsby';
 
