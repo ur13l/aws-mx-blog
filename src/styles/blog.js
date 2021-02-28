@@ -16,6 +16,12 @@ const wrapper = styled.div`
     flex-direction: column;
   }
   
+  .main-content-mobile-effect {
+    position: absolute;
+    left: 60%;
+  }
+  
+  
   .featured-post {
     height: 300px;
     margin-top: 70px;

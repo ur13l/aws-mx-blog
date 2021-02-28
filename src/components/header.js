@@ -6,41 +6,76 @@ import PropTypes from "prop-types"
 import Menu from "./menu"
 import SearchBar from "./search-bar"
 import Wrapper from "../styles/Header"
+import { FaBars, FaSearch } from "react-icons/fa/index"
 
-/**
- * HeaderWrapper element, used to set style to a component.
- */
-/**
- * Header component
- * @param {string} siteTitle
- * @param {string} location
- */
 
-class Header extends Component {
-  render() {
-    return (
-      <Wrapper style={{backgroundColor: this.props.location === "/" ? "rgba(0,0,0,0)" : "white" }}>
-        <Menu/>
-        <div id="header-content" className="container hide-on-med-and-down">
-          <Link to="/">
-            <Logo className="logo-icon"/>
-          </Link>
-          <ul className="menu-item-toolbar">
-            <li>
-              <Link to="/">blog</Link>
-            </li>
-            <li>
-              <Link to="/">eventos</Link>
-            </li>
-            <li>
-              <Link to="/">contacto</Link>
-            </li>
-          </ul>
-        </div>
-        <SearchBar/>
-      </Wrapper>
-    )
+const Header = ({location}) => {
+  const openMenu = () => {
+    const menu = document.getElementById("drawer-menu")
+    menu.classList.remove("menu-hidden")
   }
+
+  /**
+   * Method called when the search icon or the close icon are clicked.
+   */
+  const onClickSearchToggle = () => {
+    const headerSearch = document.getElementById("header-search")
+    const searchContent = document.getElementById("search-content")
+    const headerMobile = document.getElementById("header-mobile")
+    const headerInput = document.getElementsByClassName("large-input")[0]
+    headerSearch.classList.toggle("is-hidden")
+    searchContent.classList.toggle("is-hidden")
+    headerMobile.classList.toggle("is-hidden")
+    headerInput.classList.toggle("input-full-width")
+    headerInput.focus()
+  }
+
+
+
+  return (
+    <Wrapper style={{backgroundColor: location === "/" ? "rgba(0,0,0,0)" : "white" }}>
+      <Menu/>
+      <div id="header-content" className="container">
+        <div id="header-mobile" className="container hide-on-large-and-up">
+          <div
+            className="menu-icon-container pointer"
+            onClick={ openMenu }
+            onKeyDown={ openMenu }
+            role={"button"}
+            tabIndex={0}
+          >
+            <FaBars/>
+          </div>
+          <Logo className="logo-icon"/>
+          <div
+            className="search-icon-container pointer"
+            onClick={ onClickSearchToggle }
+            onKeyDown={ onClickSearchToggle }
+            role={"button"}
+            tabIndex={0}
+          >
+            <FaSearch/>
+          </div>
+        </div>
+        <Link to="/">
+          <Logo className="logo-icon hide-on-med-and-down"/>
+        </Link>
+        <ul className="menu-item-toolbar hide-on-med-and-down">
+          <li>
+            <Link to="/">blog</Link>
+          </li>
+          <li>
+            <Link to="/">eventos</Link>
+          </li>
+          <li>
+            <Link to="/">contacto</Link>
+          </li>
+        </ul>
+      </div>
+      <SearchBar/>
+    </Wrapper>
+  )
+
 }
 
 Header.propTypes = {

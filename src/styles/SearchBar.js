@@ -98,7 +98,8 @@ export default styled.div`
   #search-content,
   #header-mobile {
     height: 70px;
-    max-width: 1140px;
+    padding-left: 2%;
+    padding-right: 3%;
   }
   
   #search-content-list {

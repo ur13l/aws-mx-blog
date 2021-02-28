@@ -11,7 +11,7 @@ import { FaTimes } from "react-icons/fa"
 const MenuWrapper = styled.div`
   background: white;
   position: fixed;
-  width: 100vw;
+  width: 60%;
   height: 100vh;
   overflow: hidden;
   z-index: 2000;
@@ -61,7 +61,9 @@ class Menu extends Component {
           <FaTimes onClick={() => this.onClickClose()} />
         </div>
         <div>
-          <Link onClick={()=>{this.onClickClose()}} to="/">Inicio</Link>
+          <Link onClick={()=>{this.onClickClose()}} to="/">blog</Link>
+          <Link onClick={()=>{this.onClickClose()}} to="/">eventos</Link>
+          <Link onClick={()=>{this.onClickClose()}} to="/">contacto</Link>
         </div>
       </MenuWrapper>
     )

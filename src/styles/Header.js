@@ -26,7 +26,11 @@ export default styled.header`
   
   .logo-icon {
     width:210px;
-    
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
   }
 
   a {
@@ -52,6 +56,7 @@ export default styled.header`
   #header-mobile {
     height: 70px;
   }
+  
 
   .last-item {
     padding-right: 0 !important;
@@ -89,6 +94,12 @@ export default styled.header`
       justify-self: right;
       margin: 0;
     }
+    
+    .logo-icon {
+      width:210px;
+      margin: auto;
+      position: initial;
+  }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
