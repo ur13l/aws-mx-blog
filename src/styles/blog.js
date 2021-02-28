@@ -69,13 +69,12 @@ const wrapper = styled.div`
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
     .container {
-      max-width: 100%;
+      max-width: 1200px;
       padding: 0 50px;
     }
 
     .posts-and-side-content {
       flex-direction: row;
-      padding: 0 100px;
     }
     
     .side-content {

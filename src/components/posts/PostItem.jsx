@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
-import { Wrapper, WrapperImg,ImgStyles, ContentWrapper, Title, Excerpt } from './styles';
+import { Wrapper, WrapperImg, ContentWrapper, Title, Excerpt } from './styles';
+import ContentFooter from "./ContentFooter"
 import { strip } from '../../utils/textUtils';
 
 const PostItem = ({ post }) => {
@@ -10,10 +11,11 @@ const PostItem = ({ post }) => {
 
   return (
     <Wrapper>
-      <Img fluid={featured_media.localFile.childImageSharp.fluid} style={WrapperImg} imgStyle={ImgStyles} />
+      <Img fluid={featured_media.localFile.childImageSharp.fluid} style={WrapperImg} />
       <ContentWrapper>
         <Title>{strip(title)}</Title>
         <Excerpt>{strip(excerpt)}</Excerpt>
+        <ContentFooter author={author.name} postCreationDate={date} />
       </ContentWrapper>
     </Wrapper>
   )

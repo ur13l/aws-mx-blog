@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const Wrapper  = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  height: 600px;
-  min-width: 425px;
+  height: 550px;
   width: 100%;
   margin-bottom: 30px;
   display: flex;
@@ -16,16 +15,26 @@ export const Wrapper  = styled.div`
   }
 `;
 
-export const WrapperImg = {
-  width: '100%'
-}
+export const TableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 
-export const ImgStyles = {
-  height: '250px'
-};
+  @media only screen and (min-width: 992px) {
+    margin-right: 20px;
+  }
+`
+
+export const WrapperImg = {
+  width: '100%',
+  marginBottom: '15px',
+  height: '500px'
+}
 
 export const ContentWrapper = styled.div`
   padding: 0 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Title = styled.div`
@@ -39,7 +48,10 @@ export const Title = styled.div`
 
 export const Excerpt = styled.div`
   margin: 0 0 10px 0;
+  font-size: 1.2em;
   overflow: hidden;
+  flex-grow: 1;
   text-overflow: ellipsis;
-  max-height: 170px;
+  max-height: 8em;
+  line-height: 1em;
 `;
