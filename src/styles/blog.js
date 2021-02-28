@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { white } from './colors';
 
 const wrapper = styled.div`
-
-     
+  background-color: white;
+  min-height:100vh;
+  
   .container {
     margin: 0 auto;
     padding: 0 30px;
@@ -13,8 +14,13 @@ const wrapper = styled.div`
   .main-content {
     display: flex;
     flex-direction: column;
-    
   }
+  
+  .main-content-mobile-effect {
+    position: absolute;
+    left: 60%;
+  }
+  
   
   .featured-post {
     height: 300px;

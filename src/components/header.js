@@ -11,9 +11,8 @@ import { FaBars, FaSearch } from "react-icons/fa/index"
 
 const Header = ({location}) => {
   const openMenu = () => {
-    const main_content = document.getElementById("main-content")
-    main_content.classList.add("main-content-mobile-effect")
-    main_content.classList.remove("main-content-mobile-second-effect")
+    const menu = document.getElementById("drawer-menu")
+    menu.classList.remove("menu-hidden")
   }
 
   /**
@@ -38,26 +37,26 @@ const Header = ({location}) => {
       <Menu/>
       <div id="header-content" className="container">
         <div id="header-mobile" className="container hide-on-large-and-up">
-            <div
-              className="menu-icon-container pointer"
-              onClick={ openMenu }
-              onKeyDown={ openMenu }
-              role={"button"}
-              tabIndex={0}
-            >
-              <FaBars/>
-            </div>
-            <Logo className="logo-icon"/>
-            <div
-              className="search-icon-container pointer"
-              onClick={ onClickSearchToggle }
-              onKeyDown={ onClickSearchToggle }
-              role={"button"}
-              tabIndex={0}
-            >
-              <FaSearch/>
-            </div>
+          <div
+            className="menu-icon-container pointer"
+            onClick={ openMenu }
+            onKeyDown={ openMenu }
+            role={"button"}
+            tabIndex={0}
+          >
+            <FaBars/>
           </div>
+          <Logo className="logo-icon"/>
+          <div
+            className="search-icon-container pointer"
+            onClick={ onClickSearchToggle }
+            onKeyDown={ onClickSearchToggle }
+            role={"button"}
+            tabIndex={0}
+          >
+            <FaSearch/>
+          </div>
+        </div>
         <Link to="/">
           <Logo className="logo-icon hide-on-med-and-down"/>
         </Link>

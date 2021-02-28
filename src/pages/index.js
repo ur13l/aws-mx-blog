@@ -13,7 +13,6 @@ class Blog extends Component {
     return posts.length > 0;
   }
 
-
   getPosts = () => {
     const {
       data: {
@@ -62,7 +61,7 @@ class Blog extends Component {
         <ScrollingLayout location="/blog">
           <SEO title="AWS MX Blog" />
           <div className="container">
-            <div  className="main-content">
+            <div className="main-content">
               {this.renderMainPost()}
               <div className="posts-and-side-content">
                 {this.renderPosts()}
