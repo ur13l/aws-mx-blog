@@ -1,12 +1,13 @@
 import "../styles/global.css"
 import React from "react"
 import { Link } from "gatsby"
-import Img from "gatsby-image"
 import TimeAgo from "react-timeago"
 import esStrings from "react-timeago/lib/language-strings/es"
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter"
 import TextTruncate from "react-text-truncate"
 import Wrapper from "../styles/PostItem"
+import Image from './common/Image';
+import { getFirstAuthorName } from '../utils/TextUtils';
 
 // Formatter to be used with the TimeAgo library to show text in spanish.
 const formatter = buildFormatter(esStrings)
@@ -17,14 +18,13 @@ function normalizeText(text) {
 }
 
 const DeprecatedPostItem = ({ post, isFeaturedPost = false, hideDescription = false }) => {
-  const { node: postInfo } = post;
-  const { slug, title, featured_media, date, author, excerpt } = postInfo;
+  const { slug, title, featured_media, date, authors, excerpt } = post;
 
   const renderPostDescription = () => {
     if (hideDescription)
       return null;
 
-    return <><p className="author-name">{author.name}</p>
+    return <><p className="author-name">{getFirstAuthorName(authors)}</p>
       <TextTruncate
         line={3}
         element="span"
@@ -38,9 +38,11 @@ const DeprecatedPostItem = ({ post, isFeaturedPost = false, hideDescription = fa
   return (
     <Wrapper>
       <Link to={`/${slug}`}>
-        <div className={isFeaturedPost ? "img-cover" : "img-container"}>
-          <Img fluid={featured_media.localFile.childImageSharp.fluid} />
-        </div>
+        <Image className={isFeaturedPost ? "img-cover" : "img-container"} extraStyles={{
+          backgroundImage: `url(${featured_media}`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'}
+        }/>
         <div className="post-content">
           <TimeAgo
             className="post-date"

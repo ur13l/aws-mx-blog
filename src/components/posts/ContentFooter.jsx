@@ -32,8 +32,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const ContentFooter = (props) => {
-  const { author, postCreationDate } = props;
+const ContentFooter = ({ author, postCreationDate }) => {
   return(
     <Wrapper>
       <p className="post-author">{author}</p>

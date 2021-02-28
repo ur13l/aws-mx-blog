@@ -4,7 +4,7 @@ import SEO from './SEO';
 import styled from 'styled-components';
 import SideNav from './sidenav';
 import Title from './title';
-import PostItem from './PostItem';
+import DeprecatedPostItem from './DeprecatedPostItem';
 import Paginator from './paginator';
 import { graphql } from 'gatsby';
 import 'react-multi-carousel/lib/styles.css';
@@ -65,7 +65,7 @@ const Tag = ({
               {/*cover*/}
               <div className="post-container">
                 {items.map((item, i) => (
-                  <PostItem post={item.post} key={i} i={i} isCover={i === 0} />
+                  <DeprecatedPostItem post={item.post} key={i} i={i} isCover={i === 0} />
                 ))}
               </div>
               <Paginator

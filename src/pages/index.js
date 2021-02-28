@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import ScrollingLayout from '../components/ScrollingLayout';
 import SEO from '../components/SEO';
 import SideNav from '../components/sidenav';
-import PostItem from '../components/PostItem';
+import DeprecatedPostItem from '../components/DeprecatedPostItem';
 import Wrapper from '../styles/blog';
 import { graphql } from 'gatsby';
-import Paginator from "../components/paginator"
-import SectionTitle from "../components/common/SectionTitle"
 import PostsTable from "../components/posts/PostsTable"
 
 class Blog extends Component {
@@ -42,7 +40,7 @@ class Blog extends Component {
   renderPosts = () => {
     const {
       pageContext: { numPages, currentPage },
-    } = this.props
+    } = this.props;
     // Getting all posts except the first one already used as MainPost
     const posts = this.getPosts().slice(1);
     return (

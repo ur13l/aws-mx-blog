@@ -3,7 +3,7 @@ import PageLayout from './page-layout';
 import styled from 'styled-components';
 import 'react-multi-carousel/lib/styles.css';
 import Title from './title';
-import PostItem from './PostItem';
+import DeprecatedPostItem from './DeprecatedPostItem';
 import Paginator from './paginator';
 import { graphql } from 'gatsby';
 
@@ -72,7 +72,7 @@ const Blog = ({
             {/*cover*/}
             <div className="post-container">
               {posts.map((post, i) => (
-                <PostItem post={post} key={i} i={i} isCover={i === 0} />
+                <DeprecatedPostItem post={post} key={i} i={i} isCover={i === 0} />
               ))}
             </div>
             <Paginator

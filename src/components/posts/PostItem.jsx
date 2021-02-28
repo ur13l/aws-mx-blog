@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Img from 'gatsby-image';
 import { Wrapper, WrapperImg, ContentWrapper, Title, Excerpt } from './styles';
+import Image from '../common/Image';
 import ContentFooter from "./ContentFooter"
-import { strip } from '../../utils/textUtils';
+import { strip, getFirstAuthorName } from '../../utils/TextUtils';
 
 const PostItem = ({ post }) => {
-  const { node: postInfo } = post;
-  const { slug, title, featured_media, date, author, excerpt } = postInfo;
+  const { title, featured_media, createdAt, authors, excerpt } = post;
+  const imageStyles = {
+    ...WrapperImg,
+    backgroundImage: `url(${featured_media}`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover'
+  }
 
   return (
     <Wrapper>
-      <Img fluid={featured_media.localFile.childImageSharp.fluid} style={WrapperImg} />
+      <Image extraStyles={imageStyles} />
       <ContentWrapper>
         <Title>{strip(title)}</Title>
         <Excerpt>{strip(excerpt)}</Excerpt>
-        <ContentFooter author={author.name} postCreationDate={date} />
+        <ContentFooter author={getFirstAuthorName(authors)} postCreationDate={createdAt} />
       </ContentWrapper>
     </Wrapper>
   )
