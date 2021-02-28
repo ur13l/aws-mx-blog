@@ -6,6 +6,7 @@ import "../styles/global.css"
 import { graphql, Link } from "gatsby"
 import htmlToText from "html-to-text"
 import TextTruncate from "react-text-truncate"
+import SearchResultItem from '../components/SearchResultItem'
 
 /**
  * SearchPanelWrapper element, used to set style to a component.
@@ -14,12 +15,12 @@ const SearchPanelWrapper = styled.div`
   padding: 0 !important;
 
   #search-panel {
-    top: 70px;
+    top: 155px;
     position: fixed;
     width: 100%;
     height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.95);
-    z-index: 2000;
+    background: rgba(255, 255, 255, 1);
+    z-index: -1;
     display: grid;
     overflow: scroll;
     grid-template-columns: 1fr;
@@ -147,28 +148,9 @@ const SearchPanel = ({ q }) => {
         >
           <h3 className={"entry-section-title"}>Entradas</h3>
           {postsShown.map(entry => (
-            <Link
-              key={entry.node.id}
-              onClick={() => {
-                selectPost()
-              }}
-              to={"/publicaciones/entrada/" + entry.node.slug}
+            <SearchResultItem post={entry}>
 
-            >
-              <div className={"post-item"}>
-
-                <h4>{htmlToText.fromString(entry.node.title)}</h4>
-                <TextTruncate
-                  line={2}
-                  element="span"
-                  truncateText="…"
-                  text={entry.node.excerpt
-                    .replace("<p>", "")
-                    .replace("</p>", "")}
-                  textTruncateChild=""
-                />
-              </div>
-            </Link>
+            </SearchResultItem>
           ))}
         </div>
 

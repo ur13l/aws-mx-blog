@@ -4,9 +4,8 @@ export default styled.div`
   width: 100%;
   box-shadow:  none;
   position: absolute;
-  z-index: 999999999;
   background-color: #FBA13E !important;
-  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   div {
 
     ul  {
@@ -47,8 +46,8 @@ export default styled.div`
     background: none;
     border: none;
     border-bottom: 2px solid white;
-    color: black;
-    font-size: 14px;
+    color: white;
+    font-size: 20px;
     transition: width 0.3s;
     padding-right: 48px;
     width: 0%;
@@ -59,6 +58,14 @@ export default styled.div`
 
   .large-input:focus {
     outline: 0;
+  }
+
+  .large-input ::placeholder {
+    color: white;
+  }
+
+  .large-input ::-webkit-search-cancel-button {
+    display: none;
   }
 
   .closable {
