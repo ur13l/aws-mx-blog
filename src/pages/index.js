@@ -4,7 +4,6 @@ import ScrollingLayout from '../components/ScrollingLayout';
 import SEO from '../components/SEO';
 import SideNav from '../components/sidenav';
 import PostItem from '../components/PostItem';
-import Paginator from '../components/paginator';
 import Wrapper from '../styles/blog';
 import { graphql } from 'gatsby';
 
@@ -41,9 +40,6 @@ class Blog extends Component {
     if (!this.arePostsAvailable()) {
       return 'No hay entradas disponibles';
     }
-    const {
-      pageContext: { numPages, currentPage },
-    } = this.props;
 
     // Getting all posts except the first one already used as MainPost
     const posts = this.getPosts().slice(1);
