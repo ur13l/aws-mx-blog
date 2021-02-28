@@ -12,17 +12,22 @@ import TextTruncate from "react-text-truncate"
  */
 const SearchPanelWrapper = styled.div`
   padding: 0 !important;
-
+  z-index: -1;
   #search-panel {
-    top: 150px;
+    top: 155px;
     position: fixed;
     width: 100%;
     height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.95);
-    z-index: 1;
+    background: rgba(255, 255, 255, 1);
+    z-index: -1;
     display: grid;
     overflow: scroll;
     grid-template-columns: 1fr;
+    h3 {
+      grid-column: 1 / span 2;
+      color: #EA913A;
+      text-transform: none !important;
+    }
   }
 
   .search-panel1 {
@@ -54,7 +59,8 @@ const SearchPanelWrapper = styled.div`
   }
 
   .entry-section-title {
-    grid-column: 1 / span 2;
+    
+
   }
   
 
@@ -149,7 +155,7 @@ const SearchPanel = ({ q }) => {
             "search-panel1 container " + (postsShown.length === 0 ? "search-hidden" : "")
           }
         >
-          <h3 className={"entry-section-title"}>Entradas</h3>
+          <h3>Resultados principales</h3>
           {postsShown.map(entry => (
             <Link
               key={entry.node.id}

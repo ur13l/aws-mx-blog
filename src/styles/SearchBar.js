@@ -4,9 +4,8 @@ export default styled.div`
   width: 100%;
   box-shadow:  none;
   position: absolute;
-  z-index: 999999999;
   background-color: #FBA13E !important;
-  
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   div {
 
     ul  {
