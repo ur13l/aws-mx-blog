@@ -10,7 +10,7 @@ import React from 'react';
 const renderTags = post => {
   const { tags, id } = post;
   if (!tags) return null;
-  return tags?.map(({ slug, name }, i) => (
+  return tags?.items?.map(({ slug, name }, i) => (
     <Link key={`${id}_${i}`} to={'/categoria/' + slug}>
       <span>{' ' + name + (tags.length - 1 === i ? ' ' : ', ')}</span>
     </Link>

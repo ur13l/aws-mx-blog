@@ -1,12 +1,13 @@
-import React, { Component } from "react"
-import PageLayout from "./page-layout"
-import SEO from "./SEO"
-import styled from "styled-components"
-import SideNav from "./sidenav"
-import Title from "./title"
-import PostItem from "./PostItem"
-import Paginator from "./paginator"
-import "react-multi-carousel/lib/styles.css"
+import React from 'react';
+import PageLayout from './page-layout';
+import SEO from './SEO';
+import styled from 'styled-components';
+import SideNav from './sidenav';
+import Title from './title';
+import PostItem from './PostItem';
+import Paginator from './paginator';
+import { graphql } from 'gatsby';
+import 'react-multi-carousel/lib/styles.css';
 
 /**
  * Styled div of Tag Page
@@ -43,7 +44,7 @@ const TagWrapper = styled.div`
     background: white;
     margin-bottom: 30px;
   }
-`
+`;
 
 const Tag = ({
   data: {
@@ -70,7 +71,7 @@ const Tag = ({
               <Paginator
                 numPages={numPages}
                 currentPage={currentPage}
-                baseRoute={"/publicaciones/" + slug + "/"}
+                baseRoute={'/publicaciones/' + slug + '/'}
               />
             </div>
             <SideNav></SideNav>
@@ -78,13 +79,13 @@ const Tag = ({
         </div>
       </PageLayout>
     </TagWrapper>
-  )
-}
+  );
+};
 
 /**
  * Exporting tag
  */
-export default Tag
+export default Tag;
 
 /**
  * Query to retrieve every entry from blog
@@ -125,4 +126,4 @@ export const postsQuery = graphql`
       }
     }
   }
-`
+`;

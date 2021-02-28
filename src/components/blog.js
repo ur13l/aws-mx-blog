@@ -5,6 +5,7 @@ import 'react-multi-carousel/lib/styles.css';
 import Title from './title';
 import PostItem from './PostItem';
 import Paginator from './paginator';
+import { graphql } from 'gatsby';
 
 /**
  * Styled div of Blog Page

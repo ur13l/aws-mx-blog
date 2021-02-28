@@ -1,17 +1,18 @@
-import "react-multi-carousel/lib/styles.css"
-import React, { Component } from "react"
-import ScrollingLayout from "../components/ScrollingLayout"
-import SEO from "../components/SEO"
-import SideNav from "../components/sidenav"
-import PostItem from "../components/PostItem"
-import Paginator from "../components/paginator"
-import Wrapper from "../styles/blog"
+import 'react-multi-carousel/lib/styles.css';
+import React, { Component } from 'react';
+import ScrollingLayout from '../components/ScrollingLayout';
+import SEO from '../components/SEO';
+import SideNav from '../components/sidenav';
+import PostItem from '../components/PostItem';
+import Paginator from '../components/paginator';
+import Wrapper from '../styles/blog';
+import { graphql } from 'gatsby';
 
 class Blog extends Component {
   arePostsAvailable = () => {
-    const posts = this.getPosts()
-    return posts.length > 0
-  }
+    const posts = this.getPosts();
+    return posts.length > 0;
+  };
 
   getPosts = () => {
     const {
@@ -20,44 +21,40 @@ class Blog extends Component {
           postsByCreatedAt: { items },
         },
       },
-    } = this.props
-    return items
-  }
+    } = this.props;
+    return items;
+  };
 
   renderMainPost = () => {
     if (!this.arePostsAvailable()) {
-      return null
+      return null;
     }
-    const posts = this.getPosts()
+    const posts = this.getPosts();
     return (
       <div className="featured-post">
         <PostItem post={posts[0]} key="0" i="0" isFeaturedPost={true} />
       </div>
-    )
-  }
+    );
+  };
 
   renderPosts = () => {
     if (!this.arePostsAvailable()) {
-      return "No hay entradas disponibles"
+      return 'No hay entradas disponibles';
     }
     const {
       pageContext: { numPages, currentPage },
-    } = this.props
+    } = this.props;
+
     // Getting all posts except the first one already used as MainPost
-    const posts = this.getPosts().slice(1)
+    const posts = this.getPosts().slice(1);
     return (
       <div className="posts">
         {posts.map((post, key) => (
           <PostItem post={post} key={key} i={key} />
         ))}
-        <Paginator
-          numPages={numPages}
-          currentPage={currentPage}
-          baseRoute={"/"}
-        />
       </div>
-    )
-  }
+    );
+  };
 
   render() {
     return (
@@ -81,11 +78,11 @@ class Blog extends Component {
           </div>
         </ScrollingLayout>
       </Wrapper>
-    )
+    );
   }
 }
 
-export default Blog
+export default Blog;
 
 /**
  * Query to retrieve every entry from blog
@@ -115,4 +112,4 @@ export const postsQuery = graphql`
       }
     }
   }
-`
+`;
