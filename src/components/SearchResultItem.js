@@ -1,54 +1,73 @@
-import React from "react"
-import { Card, CardContent, CardMedia } from '@material-ui/core';
-import styled from "styled-components"
-import Typography from '@material-ui/core/Typography';
+//#region Imports Components
+import buildFormatter from "react-timeago/lib/formatters/buildFormatter"
+import esStrings from "react-timeago/lib/language-strings/es"
+import Typography from "@material-ui/core/Typography"
 import htmlToText from "html-to-text"
+import React from "react"
+import { Card, CardContent } from "@material-ui/core"
+import Img from "gatsby-image"
+import TimeAgo from "react-timeago"
+import { Link } from "gatsby"
+//#endregion
 
+//#region Imports Styles
+import "../styles/global.css"
+import SearchResultItemWrapper from "../styles/SearchResultItem"
+//#endregion
 
-/**
- * SearchPanelWrapper element, used to set style to a component.
- */
-const SearchResultItemWrapper = styled.div`
-  .root {
-      display: flex;
-  }
-  .details {
-    display: flex;
-    flexDirection: column,
-  }
-  .cardContent{
-    background-color: white;
-    flex: 1 0 auto
-  }
-  .image 
-  {
-    width: 140px;
-    height: 140px;
-  }
-`
+//#region Declaration of constants
+const formatter = buildFormatter(esStrings)
+//#endregion
 
-const SearchResultItem = ({post}) => {
+//#region Component function
+const SearchResultItem = ({ post }) => {
 
     const { node: postInfo } = post;
-    const { slug, title, featured_media, date, author, excerpt } = postInfo;
-    console.log(postInfo);
+    const { title, featured_media, date, author, slug } = postInfo;
+
     return (
         <SearchResultItemWrapper>
-            <Card className="root">
-                <div className="details">
-                    <CardMedia className="image" image="https://picsum.photos/200/300"/>
-                    <CardContent className="cardContent">
-                        <Typography component="h5" variant="h5">
-                            {htmlToText.fromString(title)}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                            Mac Miller
-                        </Typography>
-                    </CardContent>
-                </div>
-            </Card>
+            <Link to={`/${slug}`}>
+                <Card
+                    className="card">
+                    <div
+                        className="card-content">
+                        <Img
+                            className="image-card-left"
+                            fluid={featured_media.localFile.childImageSharp.fluid}
+                        />
+                        <CardContent
+                            className="content-description-rigth">
+                            <Typography
+                                className="title-text"
+                                variant="body2"
+                                color="textPrimary">
+                                {htmlToText.fromString(title)}
+                            </Typography>
+                            <div
+                                className="bottom-description">
+                                <Typography
+                                    variant="caption"
+                                    className="author-text">
+                                    {author.name}
+                                </Typography>
+                                <Typography
+                                    className="date-text">
+                                    <TimeAgo
+                                        formatter={formatter}
+                                        date={date}
+                                    />
+                                </Typography>
+                            </div>
+                        </CardContent>
+                    </div>
+                </Card>
+            </Link>
         </SearchResultItemWrapper>
     )
 }
+//#endregion
 
+//#region Export Component function
 export default SearchResultItem;
+//#endregion

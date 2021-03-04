@@ -103,17 +103,28 @@ const SearchPanel = ({ q }) => {
       ) {
         edges {
           node {
-            id
+            author {
+              name
+            }
             title
-            content
-            excerpt
             slug
             date
-            sticky
             categories {
               id
               name
             }
+            featured_media {
+              link
+              caption
+              localFile {
+                childImageSharp {
+                  # Try editing the "maxWidth" value to generate resized images.
+                  fluid(maxWidth: 468) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            } 
           }
         }
       }
