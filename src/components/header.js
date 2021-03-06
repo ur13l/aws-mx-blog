@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import Logo from '../assets/svg/aws-logo.svg';
 import PropTypes from "prop-types"
 import Menu from "./menu"
-import SearchBar from "./search-bar"
+import SearchBar from "./SearchBar"
 import Wrapper from "../styles/Header"
 import { FaBars, FaSearch } from "react-icons/fa/index"
 

@@ -2,12 +2,13 @@
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter"
 import esStrings from "react-timeago/lib/language-strings/es"
 import Typography from "@material-ui/core/Typography"
-import htmlToText from "html-to-text"
+import parse from 'html-react-parser';
 import React from "react"
 import { Card, CardContent } from "@material-ui/core"
 import Img from "gatsby-image"
 import TimeAgo from "react-timeago"
 import { Link } from "gatsby"
+import PropTypes from "prop-types"
 //#endregion
 
 //#region Imports Styles
@@ -17,6 +18,10 @@ import SearchResultItemWrapper from "../styles/SearchResultItem"
 
 //#region Declaration of constants
 const formatter = buildFormatter(esStrings)
+const selectedItem = () => {
+    document.body.style = "overflow:inherit"
+    document.documentElement.style = "overflow:scroll"
+}
 //#endregion
 
 //#region Component function
@@ -27,22 +32,23 @@ const SearchResultItem = ({ post }) => {
 
     return (
         <SearchResultItemWrapper>
-            <Link to={`/${slug}`}>
+            <Link 
+                to={`/${slug}`}
+                onClick={selectedItem}>
                 <Card
                     className="card">
                     <div
                         className="card-content">
                         <Img
                             className="image-card-left"
-                            fluid={featured_media.localFile.childImageSharp.fluid}
-                        />
+                            fluid={featured_media.localFile.childImageSharp.fluid}/>
                         <CardContent
                             className="content-description-rigth">
                             <Typography
                                 className="title-text"
                                 variant="body2"
                                 color="textPrimary">
-                                {htmlToText.fromString(title)}
+                                {parse(title)}
                             </Typography>
                             <div
                                 className="bottom-description">
@@ -55,8 +61,7 @@ const SearchResultItem = ({ post }) => {
                                     className="date-text">
                                     <TimeAgo
                                         formatter={formatter}
-                                        date={date}
-                                    />
+                                        date={date}/>
                                 </Typography>
                             </div>
                         </CardContent>
@@ -65,6 +70,12 @@ const SearchResultItem = ({ post }) => {
             </Link>
         </SearchResultItemWrapper>
     )
+}
+//#endregion
+
+//#region PropTypes
+SearchResultItem.propTypes = {
+    post: PropTypes.object.isRequired
 }
 //#endregion
 

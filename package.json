@@ -28,6 +28,7 @@
     "gatsby-transformer-sharp": "^2.5.12",
     "google-maps-react": "^2.0.6",
     "hover.css": "^2.3.2",
+    "html-react-parser": "^1.2.4",
     "html-to-text": "^5.1.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",

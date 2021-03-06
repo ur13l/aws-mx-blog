@@ -3,7 +3,7 @@ import React, { Component, useState } from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { FaSearch, FaTimes, FaBars } from "react-icons/fa"
-import SearchPanel from "./search-panel"
+import SearchPanel from "./SearchPanel"
 import Logo from '../assets/svg/logo-aws.svg';
 import Wrapper from "../styles/SearchBar"
 
@@ -26,7 +26,7 @@ const SearchBar = () => {
       headerSearch.classList.toggle("is-hidden")
       searchContent.classList.toggle("is-hidden")
       headerMobile.classList.toggle("is-hidden")
-      searchPanel.classList.add("is-hidden")
+      //searchPanel.classList.add("is-hidden")
       document.body.style = "overflow:auto"
       document.documentElement.style = "overflow:scroll"
     }, 300)
@@ -54,15 +54,15 @@ const SearchBar = () => {
     const searchPanel = document.getElementById("search-panel")
     onChangeSearchText(headerInput.value)
     // If the length of the search content is less than 3 characters, do not show the search panel.
-    if (headerInput.value.length >= 3) {
-      searchPanel.classList.remove("is-hidden")
-      document.body.style = "overflow:hidden"
-      document.documentElement.style = "overflow:hidden"
-    } else if (headerInput.value.length <= 3) {
-      searchPanel.classList.add("is-hidden")
-      document.body.style = "overflow:auto"
-      document.documentElement.style = "overflow:scroll"
-    }
+    //if (headerInput.value.length >= 3) {
+      //searchPanel.classList.remove("is-hidden")
+      //document.body.style = "overflow:hidden"
+      //document.documentElement.style = "overflow:hidden"
+    //} else if (headerInput.value.length <= 3) {
+      //searchPanel.classList.add("is-hidden")
+     // document.body.style = "overflow:auto"
+      //document.documentElement.style = "overflow:scroll"
+    //}
   }
 
 
@@ -131,7 +131,7 @@ const SearchBar = () => {
           </li>
         </ul>
       </div>
-      <SearchPanel id="search-panel" q={q}/>
+      <SearchPanel id="search-panel" searchText={q}/>
     </Wrapper>
   )
 }
