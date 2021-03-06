@@ -1,15 +1,14 @@
 import "../styles/global.css"
-import React, { Component, useState } from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { FaSearch, FaTimes, FaBars } from "react-icons/fa"
+import { FaSearch, FaTimes } from "react-icons/fa"
 import SearchPanel from "./SearchPanel"
-import Logo from '../assets/svg/logo-aws.svg';
 import Wrapper from "../styles/SearchBar"
 
-
 const SearchBar = () => {
-  const [q, setState] = useState("");
+
+  const [searchText, setSearchText] = useState("");
 
   /**
    * Called when the close button on the search bar is clicked.
@@ -19,31 +18,15 @@ const SearchBar = () => {
     const searchContent = document.getElementById("search-content")
     const headerMobile = document.getElementById("header-mobile")
     const headerInput = document.getElementsByClassName("large-input")[0]
-    const searchPanel = document.getElementById("search-panel")
     headerInput.classList.toggle("input-full-width")
     headerInput.value = ""
-    setTimeout(() => {
-      headerSearch.classList.toggle("is-hidden")
-      searchContent.classList.toggle("is-hidden")
-      headerMobile.classList.toggle("is-hidden")
-      //searchPanel.classList.add("is-hidden")
-      document.body.style = "overflow:auto"
-      document.documentElement.style = "overflow:scroll"
-    }, 300)
+    headerSearch.classList.toggle("is-hidden")
+    searchContent.classList.toggle("is-hidden")
+    headerMobile.classList.toggle("is-hidden")
+    document.body.style = "overflow:auto"
+    document.documentElement.style = "overflow:scroll"
+    setSearchText("")
   }
-
-
-  /**
-   * @method onChangeSearchText
-   * @author Uriel
-   * @param {string} q
-   * Method executed when the user is typing a search term.
-   */
-  const onChangeSearchText = (q) => {
-    setState(q);
-  }
-
-
   /**
    * @method onKeyUp
    * @author Uriel
@@ -51,18 +34,7 @@ const SearchBar = () => {
    */
   const onKeyUp = () => {
     const headerInput = document.getElementsByClassName("large-input")[0]
-    const searchPanel = document.getElementById("search-panel")
-    onChangeSearchText(headerInput.value)
-    // If the length of the search content is less than 3 characters, do not show the search panel.
-    //if (headerInput.value.length >= 3) {
-      //searchPanel.classList.remove("is-hidden")
-      //document.body.style = "overflow:hidden"
-      //document.documentElement.style = "overflow:hidden"
-    //} else if (headerInput.value.length <= 3) {
-      //searchPanel.classList.add("is-hidden")
-     // document.body.style = "overflow:auto"
-      //document.documentElement.style = "overflow:scroll"
-    //}
+    setSearchText(headerInput.value)
   }
 
 
@@ -90,7 +62,7 @@ const SearchBar = () => {
               onKeyUp={onKeyUp}
               className="large-input"
               type="search"
-              placeholder="Buscar..."
+              placeholder="Buscar"
             />
             <FaTimes
               className="closable_close"
@@ -124,14 +96,13 @@ const SearchBar = () => {
               onClick={ onClickSearchToggle }
               onKeyDown={ onClickSearchToggle }
               role={"button"}
-              tabIndex={0}
-            >
+              tabIndex={0}>
               <FaSearch style={{verticalAlign: 'middle', height: '100%'}} />
             </div>
           </li>
         </ul>
       </div>
-      <SearchPanel id="search-panel" searchText={q}/>
+      <SearchPanel id="search-panel" searchText={searchText}/>
     </Wrapper>
   )
 }
