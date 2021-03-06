@@ -72,6 +72,16 @@ const SearchPanel = ({ searchText }) => {
     )
     .splice(0, 6)
 
+ const test = (items) => {
+   var aux = []
+    for (let index = 0; index < 20; index++) {
+        items.forEach(element => {
+            aux.push(element)
+        });
+    }
+    return aux;
+  }
+
   return (
     searchText.length >= 3 ?
       <SearchPanelWrapper>
@@ -85,7 +95,7 @@ const SearchPanel = ({ searchText }) => {
             <div
               className="panel">
                 {
-                  postsShown.map(entry => (
+                  test(postsShown).map(entry => (
                     <SearchResultItem post={entry}/>
                   ))
                 }

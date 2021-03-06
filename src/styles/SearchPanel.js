@@ -8,12 +8,13 @@ export default styled.div`
     top: 140px;
     position: fixed;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 140px);
     background: rgba(255, 255, 255, 1);
     z-index: -1;
     display: flex;
     flex-direction: column;
     gap: 26px;
+    overflow:scroll;
   }
 
   .text-title {
