@@ -49,7 +49,6 @@ export default styled.div`
     color: white;
     font-size: 20px;
     transition: width 0.3s;
-    padding-right: 48px;
     width: 0%;
     height: 0%;
     float: right;
@@ -100,6 +99,8 @@ export default styled.div`
   #header-search {
     height: 70px;
     padding-top: 15px;
+    margin-right: 26px;
+    margin-left: 26px;
   }
 
   #search-content,
@@ -149,9 +150,6 @@ export default styled.div`
       justify-self: right;
       margin: 0;
     }
-    .large-input {
-      font-size: 14px;
-    }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
@@ -162,10 +160,6 @@ export default styled.div`
       color: black;
       align-content: center;
       grid-gap: 18px;
-    }
-
-    .large-input {
-      font-size: 14px;
     }
   }
 `

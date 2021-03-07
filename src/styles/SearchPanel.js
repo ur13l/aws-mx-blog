@@ -18,7 +18,7 @@ export default styled.div`
   }
 
   .text-title {
-    margin-top: 26px;
+    margin-top: 50px;
     margin-left: 26px;
     color: #FBA13E;
   }
