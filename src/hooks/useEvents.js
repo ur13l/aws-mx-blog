@@ -1,45 +1,36 @@
 import { graphql, useStaticQuery } from "gatsby"
 
+//TODO: Agregar entidad de Eventos en AppSync (Ordenados por lista)
 export const useEvents = () => {
-    const { events } = useStaticQuery(graphql `
-        query {
-            events: allWordpressPost(
-                sort: { fields: [date], order: DESC },
-                filter: { categories: { elemMatch: { name: { eq: "Evento" } } } }
-                limit: 11
-            ) {
-                edges {
-                    node {
-                        id
-                        title
-                        content
-                        excerpt
-                        slug
-                        date
-                        author {
-                            name
-                        }
-                        featured_media {
-                            link
-                            caption
-                            localFile {
-                                childImageSharp {
-                                    # Try editing the "maxWidth" value to generate resized images.
-                                    fluid(maxWidth: 468) {
-                                        ...GatsbyImageSharpFluid_tracedSVG
-                                    }
-                                }
-                            }
-                        }
-                        categories {
-                            id
-                            name
-                        }
-                    }
+  const {
+    posts: {
+      postsByCreatedAt: { items: events },
+    },
+  } = useStaticQuery(graphql`
+    query {
+      posts {
+        postsByCreatedAt(type: "Post", sortDirection: DESC, limit: 11) {
+          items {
+            id
+            title
+            content
+            excerpt
+            slug
+            createdAt
+            authors {
+              items {
+                author {
+                  firstName
+                  lastName
                 }
+              }
             }
+            featured_media
+          }
         }
-    `)
+      }
+    }
+  `)
 
-    return events;
+  return events
 }

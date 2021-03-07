@@ -1,0 +1,50 @@
+type Author @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  photo: String
+  description: String
+  twitter: String
+  linkedin: String
+  facebook: String
+  github: String
+  youtube: String
+  posts: [AuthorPost] @connection(keyName: "byAuthor", fields: ["id"])
+}
+
+type Post @model @auth(rules: [{allow: public}]) @key(name: "byCreatedAtDate", fields: ["type", "createdAt"], queryField: "postsByCreatedAt") {
+  id: ID!
+  authors: [AuthorPost] @connection(keyName: "byPost", fields: ["id"])
+  title: String!
+  content: String
+  featured_media: String
+  slug: String
+  type: String
+  tags: [PostTag] @connection(keyName: "byPost", fields: ["id"])
+  createdAt: AWSDateTime!
+  excerpt: String
+}
+
+type Tag @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  posts: [PostTag] @connection(keyName: "byTag", fields: ["id"])
+  name: String
+  slug: String
+}
+
+type AuthorPost @model(queries: null) @key(name: "byAuthor", fields: ["authorID", "postID"]) @key(name: "byPost", fields: ["postID", "authorID"]) @auth(rules: [{allow: public}, {allow: public}]) {
+  id: ID!
+  authorID: ID!
+  postID: ID!
+  author: Author! @connection(fields: ["authorID"])
+  post: Post! @connection(fields: ["postID"])
+}
+
+type PostTag @model(queries: null) @key(name: "byPost", fields: ["postID", "tagID"]) @key(name: "byTag", fields: ["tagID", "postID"], queryField: "postsByTag") @auth(rules: [{allow: public}, {allow: public}]) {
+  id: ID!
+  postID: ID!
+  tagID: ID!
+  post: Post! @connection(fields: ["postID"])
+  tag: Tag! @connection(fields: ["tagID"])
+}
+ 

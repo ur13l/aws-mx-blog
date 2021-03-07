@@ -2,11 +2,10 @@ import "../styles/global.css"
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import Wrapper from '../styles/Paginator';
+import Wrapper from "../styles/Paginator"
 
 const Paginator = ({ numPages, currentPage, baseRoute }) => {
-  if (numPages === 0)
-    return null;
+  if (numPages === 0) return null
 
   let pageIndicators = []
 
@@ -15,7 +14,10 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
    */
   if (currentPage > 1) {
     pageIndicators.push(
-      <Link to={baseRoute + (currentPage - 1 === 1 ? "" : currentPage - 1)}>
+      <Link
+        key="prev"
+        to={baseRoute + (currentPage - 1 === 1 ? "" : currentPage - 1)}
+      >
         <li>&lt;</li>
       </Link>
     )
@@ -24,13 +26,13 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
   Array.from({ length: numPages }).forEach((_, i) => {
     if (currentPage === i + 1) {
       pageIndicators.push(
-        <Link to={baseRoute + (i + 1)}>
+        <Link to={baseRoute + (i + 1)} key={i}>
           <li className="current-page">{i + 1}</li>
         </Link>
       )
     } else {
       pageIndicators.push(
-        <Link to={baseRoute + (i + 1 === 1 ? "": i + 1 )}>
+        <Link to={baseRoute + (i + 1 === 1 ? "" : i + 1)} key={i}>
           <li>{i + 1}</li>
         </Link>
       )
@@ -42,7 +44,10 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
    */
   if (currentPage < numPages) {
     pageIndicators.push(
-      <Link to={baseRoute + (currentPage + 1 === 1 ? "" : currentPage + 1)}>
+      <Link
+        key="next"
+        to={baseRoute + (currentPage + 1 === 1 ? "" : currentPage + 1)}
+      >
         <li>&gt;</li>
       </Link>
     )
@@ -60,7 +65,7 @@ const Paginator = ({ numPages, currentPage, baseRoute }) => {
 Paginator.propTypes = {
   numPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
-  baseRoute: PropTypes.string.isRequired
+  baseRoute: PropTypes.string.isRequired,
 }
 
 export default Paginator
