@@ -4,7 +4,7 @@ import esStrings from "react-timeago/lib/language-strings/es"
 import Typography from "@material-ui/core/Typography"
 import parse from 'html-react-parser';
 import React from "react"
-import { Card, CardContent } from "@material-ui/core"
+import { Card, CardContent, CardMedia } from "@material-ui/core"
 import Img from "gatsby-image"
 import TimeAgo from "react-timeago"
 import { Link } from "gatsby"
@@ -27,8 +27,20 @@ const selectedItem = () => {
 //#region Component function
 const SearchResultItem = ({ post }) => {
 
-    const { node: postInfo } = post;
-    const { title, featured_media, date, author, slug } = postInfo;
+    const { title, featured_media, createdAt, authors, slug } = post;
+
+    const getTextAuthors = (items) => {
+        var textAuthors = "";
+        for (let index = 0; index < items.items.length; index++) {
+            const element = items.items[index];
+            if(index == (items.items.length - 1)){
+                textAuthors += `${element.author.firstName} ${element.author.lastName}`;
+            }else{
+                textAuthors += `${element.author.firstName} ${element.author.lastName},`;
+            }
+        }
+        return textAuthors;
+    }
 
     return (
         <SearchResultItemWrapper>
@@ -39,9 +51,9 @@ const SearchResultItem = ({ post }) => {
                     className="card">
                     <div
                         className="card-content">
-                        <Img
+                        <CardMedia
                             className="image-card-left"
-                            fluid={featured_media.localFile.childImageSharp.fluid}/>
+                            image={featured_media}/>
                         <CardContent
                             className="content-description-rigth">
                             <Typography
@@ -55,13 +67,13 @@ const SearchResultItem = ({ post }) => {
                                 <Typography
                                     variant="caption"
                                     className="author-text">
-                                    {author.name}
+                                    {getTextAuthors(authors)}
                                 </Typography>
                                 <Typography
                                     className="date-text">
                                     <TimeAgo
                                         formatter={formatter}
-                                        date={date}/>
+                                        date={createdAt}/>
                                 </Typography>
                             </div>
                         </CardContent>

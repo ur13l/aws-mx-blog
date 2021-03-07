@@ -54,11 +54,11 @@ export default styled.div`
   }
   
   .author-text {
-    font-size: 10px;
+    font-size: 8px;
   }
   
   .date-text {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .content-description-rigth {
@@ -84,11 +84,11 @@ export default styled.div`
   }
   
   .author-text {
-    font-size: 11px;
+    font-size: 8px;
   }
   
   .date-text {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .content-description-rigth {
@@ -123,11 +123,11 @@ export default styled.div`
   }
   
   .author-text {
-    font-size: 14px;
+    font-size: 10px;
   }
   
   .date-text {
-    font-size: 12px;
+    font-size: 15px;
   }
 
 }
@@ -152,11 +152,11 @@ export default styled.div`
   }
   
   .author-text {
-    font-size: 15px;
+    font-size: 11px;
   }
   
   .date-text {
-    font-size: 13px;
+    font-size: 16px;
   }
 
 }
@@ -181,11 +181,11 @@ export default styled.div`
   }
   
   .author-text {
-    font-size: 17px;
+    font-size: 13px;
   }
   
   .date-text {
-    font-size: 15px;
+    font-size: 18px;
   }
 
 }

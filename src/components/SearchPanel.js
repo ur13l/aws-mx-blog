@@ -23,43 +23,31 @@ const SearchPanel = ({ searchText }) => {
 
   const data = useStaticQuery(graphql`
     query {
-      posts: allWordpressPost(
-        sort: { fields: [date], order: DESC }
-      ) {
-        edges {
-          node {
-            author {
-              name
-            }
+      posts {
+        postsByCreatedAt(type: "Post", sortDirection: DESC) {
+          items {
             title
             slug
-            date
-            categories {
-              id
-              name
-            }
-            featured_media {
-              link
-              caption
-              localFile {
-                childImageSharp {
-                  # Try editing the "maxWidth" value to generate resized images.
-                  fluid(maxWidth: 468) {
-                    ...GatsbyImageSharpFluid
-                  }
+            createdAt
+            authors {
+              items {
+                author {
+                  firstName
+                  lastName
                 }
               }
-            } 
+            }
+            featured_media
           }
         }
       }
     }
   `)
 
-  const postsShown = data.posts.edges
+  const postsShown = data.posts.postsByCreatedAt.items
     .filter(
       elem =>
-        elem.node.title
+        elem.title
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
@@ -71,16 +59,6 @@ const SearchPanel = ({ searchText }) => {
           ) !== -1
     )
     .splice(0, 6)
-
- const test = (items) => {
-   var aux = []
-    for (let index = 0; index < 20; index++) {
-        items.forEach(element => {
-            aux.push(element)
-        });
-    }
-    return aux;
-  }
 
   return (
     searchText.length >= 3 ?
@@ -95,7 +73,7 @@ const SearchPanel = ({ searchText }) => {
             <div
               className="panel">
                 {
-                  test(postsShown).map(entry => (
+                  postsShown.map(entry => (
                     <SearchResultItem post={entry}/>
                   ))
                 }
