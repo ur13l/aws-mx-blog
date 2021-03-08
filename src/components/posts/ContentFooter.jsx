@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 import TimeAgo from "react-timeago";
-// eslint-disable-next-line no-unused-vars
 import { orange, darkGray } from '../../styles/colors';
 import { getDateFormatter } from '../../utils/DateUtils';
 
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   
   .post-author {
-    color: darkGray;
+    color: ${darkGray};
     font-size: 0.9rem;
     line-height: 1.1;
     font-weight: 800;
@@ -23,7 +22,7 @@ const Wrapper = styled.div`
   
   .post-date {
     margin: 0;
-    color: orange;
+    color: ${orange};
     text-rendering: optimizeLegibility;
     font-size: 0.9rem;
     line-height: 1.1;

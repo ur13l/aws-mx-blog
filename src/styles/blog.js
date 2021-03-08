@@ -1,9 +1,8 @@
 import styled from "styled-components";
-// eslint-disable-next-line no-unused-vars
 import { white } from './colors';
 
 const wrapper = styled.div`
-  background-color: white;
+  background-color: ${white};
   min-height:100vh;
   
   .container {
