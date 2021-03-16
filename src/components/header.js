@@ -44,7 +44,7 @@ const Header = ({location}) => {
   const onClickMobileSearchToggle = () => {
     const headerSearch = document.getElementById("header-search-mobile")
     const headerMobile = document.getElementById("header-mobile")
-    const headerInput = document.getElementsByClassName("large-input")[0]
+    const headerInput = document.getElementsByClassName("large-input-mobile")[0]
     headerSearch.classList.toggle("is-hidden")
     headerMobile.classList.toggle("is-hidden")
     headerInput.classList.toggle("input-full-width")
@@ -58,7 +58,7 @@ const Header = ({location}) => {
   const onClickCancel = () => {
     const headerSearch = document.getElementById("header-search-mobile")
     const headerMobile = document.getElementById("header-mobile")
-    const headerInput = document.getElementsByClassName("large-input")[0]
+    const headerInput = document.getElementsByClassName("large-input-mobile")[0]
     const searchPanel = document.getElementById("search-panel")
     headerInput.classList.toggle("input-full-width")
     headerInput.value = ""
@@ -97,15 +97,15 @@ const Header = ({location}) => {
               <FaSearch/>
             </div>
           </div>
-        <div id="header-search-mobile" className="container is-hidden ">
-          <span className="closable">
+        <div id="header-search-mobile" className="is-hidden ">
+          <span className="closable-mobile">
             <input
-              className="large-input"
+              className="large-input-mobile"
               type="search"
               placeholder="Buscar..."
             />
             <FaTimes
-              className="closable_close"
+              className="closable-close-mobile"
               style={{verticalAlign: 'middle'}}
               role={"button"}
               tabIndex={0}

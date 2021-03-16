@@ -26,6 +26,23 @@ export default styled.header`
     transition: opacity .3s, transform .3s;
   }
   
+  .large-input-mobile {
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    color: black;
+    font-size: 14px;
+    transition: width 0.3s;
+    padding-right: 48px;
+    width: 0%;
+    height: 0%;
+    float: right;
+    box-sizing: border-box;
+  }
+  
+  .large-input-mobile:focus {
+    outline: 0;
+  }
   
   .icon-hover {
     transition: opacity .3s, transform .3s;
@@ -108,7 +125,27 @@ export default styled.header`
     height: 70px;
   }
   
+  
+  .closable-close-mobile {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 0px 10px 0px;
+    cursor: pointer;
+    color: black;
+  }
 
+  .input-full-width {
+    width: 100% !important;
+    height: 45px;
+  }
+
+  .closable-mobile {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      font-size: 40px !important;
+    }
   .last-item {
     padding-right: 0 !important;
     margin-right: 0 !important;
@@ -151,6 +188,10 @@ export default styled.header`
       margin: auto;
       position: initial;
   }
+  
+  .large-input-mobile {
+      font-size: 14px;
+    }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
@@ -161,6 +202,10 @@ export default styled.header`
       color: black;
       align-content: center;
       grid-gap: 18px;
+    }
+    
+    .large-input-mobile {
+      font-size: 14px;
     }
 
   }
