@@ -4,6 +4,7 @@ import React, { Component } from "react"
 import styled from "styled-components"
 import "../styles/global.css"
 import { FaTimes } from "react-icons/fa"
+import Logo from "../assets/svg/aws-logo.svg"
 
 /**
  * MenuWrapper element, used to set style to a component.
@@ -24,11 +25,17 @@ const MenuWrapper = styled.div`
   transition: width 0.2s;
   color: black !important;
 
+  .mobile-logo-menu {
+    margin-right: 10% !important;
+    margin-top: 20% !important;
+  }
+  
   div {
     padding: 12px 24px !important;
     margin: 0 !important;
   }
-
+  
+  
   .bottom {
     align-self: end;
     width: 100%;
@@ -37,6 +44,18 @@ const MenuWrapper = styled.div`
   .menu-close-icon {
     justify-self: end;
     text-align: right;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+    
+    display: inline-block;
+    
+    li {
+      margin-bottom: 20px;
+    }
   }
 `
 
@@ -48,11 +67,10 @@ const MenuWrapper = styled.div`
 class Menu extends Component {
 
   onClickClose() {
-    //const menu = document.getElementById("drawer-menu")
-    //menu.classList.add("menu-hidden")
     const main_content = document.getElementById("main-content")
     main_content.classList.remove("main-content-mobile-effect")
     main_content.classList.add("main-content-mobile-second-effect")
+    main_content.classList.add("overflowx")
   }
 
   /**
@@ -61,8 +79,8 @@ class Menu extends Component {
   render() {
     return (
       <MenuWrapper id="drawer-menu">
+        <Logo className="logo-icon mobile-logo-menu"/>
         <div className="menu-close-icon">
-          <FaTimes onClick={() => this.onClickClose()} />
         </div>
         <div>
           <ul>

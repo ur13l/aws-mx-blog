@@ -5,7 +5,7 @@ export default styled.div`
   background-color: white;
 
   &.main-content-mobile-effect {
-    position:absolute;
+    position:fixed;
     transition:transform 0.4s ease-in-out;
     transform: translateX(60%);
   }
@@ -14,9 +14,10 @@ export default styled.div`
   &.main-content-mobile-second-effect {
     position:absolute;
     transition:transform 0.4s ease-in-out;
-    transform: translateX(0%);
+    overflow-x: auto;
   }
   
+ 
   
   .is-hidden {
     visibility: hidden;

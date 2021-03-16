@@ -7,6 +7,42 @@ export default styled.header`
   z-index: 999999999;
   
   
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .behind {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    display: block;
+  }
+  
+  .icon-default {
+    transition: opacity .3s, transform .3s;
+  }
+  
+  
+  .icon-hover {
+    transition: opacity .3s, transform .3s;
+    transform: rotate(-90deg) scale(.5);
+    opacity: 0;
+    }
+    
+  .icon-hover-active {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  
+  .icon-default-0 {
+    transform: rotate(90deg) scale(.5);
+    opacity: 0;
+  }
+  
   div {
     margin: 0 auto;
 
